@@ -1,0 +1,105 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>touch触摸事件</title>
+    <style>
+        .d1 {
+            width: 100px;
+            height: 100px;
+            background-color: royalblue;
+        }
+        
+        .d2 {
+            position: absolute;
+            top: 120px;
+            left: 10px;
+            width: 100px;
+            height: 100px;
+            background-color: limegreen;
+        }
+
+        .btn {
+            position: absolute;
+            top: 10px;
+            right: 10px;
+        }
+        .bg {
+            background-color: #222;
+        }
+    </style>
+</head>
+<body>
+    <div class="d1 w"></div>
+
+    <div class="d2">拖动盒子</div>
+
+    <button class="btn">开关灯</button>
+
+
+    <script>
+        var d1 = document.querySelector('.d1');
+
+        //手指按下
+        d1.addEventListener('touchstart', function(e){
+            console.log('触摸了div');
+            //触摸事件对象touchEvent
+            console.log(e);
+            /* 其中touches中存放了 正在触摸屏幕的所有手指的列表 
+               targetTouches中存放 触摸当前DOM元素的手指列表
+               changedTouches  手指状态发生改变的手指列表 （从有到无，从无到有）*/
+
+            // 由于监听的是同一个元素，touches和targetTouches没有区别，一般使用targetTouches
+            console.log(e.targetTouches[0]);
+        })
+
+        d1.addEventListener('touchmove', function(){
+            console.log('拖动了div');
+        })
+
+        //手指离开
+        d1.addEventListener('touchend', function(e){
+            console.log('离开了div');
+            console.log(e);
+            /* 手指离开时touches,targetTouches列表长度会变为0
+               但changedTouches中仍存放有手指 */
+        })
+
+        var d2 = document.querySelector('.d2');
+        var startX = 0; //手指初始坐标
+        var startY = 0;
+        var x = 0; //盒子初始位置
+        var y = 0;
+        d2.addEventListener('touchstart', function(e){
+            startX = e.targetTouches[0].pageX;
+            startY = e.targetTouches[0].pageY;
+            x = this.offsetLeft;
+            y = this.offsetTop;
+        })
+        d2.addEventListener('touchmove', function(e){
+            var moveX = e.targetTouches[0].pageX - startX;
+            var moveY = e.targetTouches[0].pageY - startY;
+            this.style.left = x + moveX + 'px';
+            this.style.top = y + moveY + 'px';
+            e.preventDefault(); //阻止屏幕滚动的默认行为
+        })
+
+
+        //classList 返回元素的类选择器列表   H5新增，兼容ie10以上
+        console.log(d1.classList);
+        console.log(d1.classList[0]);
+        //添加类名(不需要加点)  与className不同，会在后面追加类名，不会覆盖
+        d1.classList.add('current');
+        //移除类名
+        d1.classList.remove('current');
+        //切换类
+        var btn = document.querySelector('.btn');
+        btn.addEventListener('click', function(){
+            document.body.classList.toggle('bg');
+            //自动判断，如果有该类名就去掉，若没有则加上
+        })
+    </script>
+</body>
+</html>

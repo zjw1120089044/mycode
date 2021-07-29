@@ -1,0 +1,65 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>表格</title>
+</head>
+<body><!--table属性一般通过css设置-->
+    <!--   table位置       边框     单元格内容与边框的距离  单元格与单元格的空隙  -->
+    <table align="center" border="1" cellpadding="20"     cellspacing="0"  width="500" height="200">
+        <tr> <th>姓名</th> <th>表头</th> <th>默认居中加粗</th> </tr>
+        <tr> <td>张三</td> <td>男</td>   <td>23</td>          </tr>
+        <tr> <td>李四</td> <td>女</td>   <td>20</td>          </tr>
+    </table>
+
+    <table align="center" border="1" cellpadding="10" cellspacing="0">
+        <thead><!--为了更好的表示表格的语义-->
+            <tr>
+                <th>排名</th>
+                <th>关键词</th>
+                <th>趋势</th>
+                <th>今日搜索</th>
+                <th>最近七日</th>
+                <th>相关链接</th>
+            </tr>
+        </thead>
+        <tbody>
+            <tr>
+                <td>1</td>
+                <td>测试</td>
+                <td><img src="../../Pictures/psb.jpg" width="50"></td>
+                <td>456</td>
+                <td>111</td>
+                <td><a href="http://www.baidu.com">百度</a></td>
+            </tr>
+            <tr>
+                <td>2</td>
+                <td>测试</td>
+                <td><img src="../../Pictures/psb.jpg" width="50"></td>
+                <td>456</td>
+                <td>111</td>
+                <td><a href="#">百度</a></td>
+            </tr>
+        </tbody>
+    </table>
+    <table width="300" height="200" border="1" cellspacing="0" cellpadding="30" > 
+        <tr>
+            <td></td>
+            <td colspan="2">跨列合并单元格</td>
+            
+        </tr>
+        <tr>
+            <td rowspan="2">跨行合并单元格</td>
+            <td></td>
+            <td></td>
+        </tr>
+        <tr>
+            
+            <td></td>
+            <td></td>
+        </tr>
+    </table>
+</body>
+</html>

@@ -1,0 +1,47 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>伪类选择器</title>
+    <style>
+        a:link {
+            color: gray;
+            text-decoration: none;
+        }
+        /* 未访问过的链接 */
+        a:visited {
+            color: indigo;
+            text-decoration: none;
+        }
+        /* 访问过的链接 */
+        a:hover {
+            color: royalblue;
+            text-decoration: none;
+        }
+        /* 鼠标经过的链接 */
+        a:active {
+            color: red;
+            text-decoration: none;
+        }
+        /* 鼠标按下还未弹起的链接 */
+        /* 链接伪类选择器（lvha）的顺序不能更换否则失效 ,开发中通常只使用hover*/
+
+        input:focus {
+            background-color: royalblue;
+        }
+        /* 焦点伪类选择器 */
+    </style>
+</head>
+<body>
+    <h3><a href="#1">未访问过的链接</a></h3>
+    <h3><a href="https://www.baidu.com">访问过的链接</a></h3>
+    <h3><a href="#1">鼠标经过的链接</a></h3>
+    <h3><a href="#2">鼠标按下还未弹起的链接</a></h3>
+
+    <input type="text">
+    <input type="text">
+    <input type="text">
+</body>
+</html>

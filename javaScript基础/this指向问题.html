@@ -1,0 +1,53 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>this指向</title>
+</head>
+<body>
+    <ul class="ul1">
+        <li>111</li>
+        <li>222</li>
+        <li>333</li>
+    </ul>
+
+    <script>
+        //this 一般指向调用它的对象
+
+        //全局作用域，或普通函数中this指向window  定时器中的this也指向window
+        console.log(this);
+        function fn(){
+            console.log(this);
+        }
+        fn(); //省略了window.fn();
+        var timer = setTimeout(function(){  //window.setTimeout()
+            console.log(this);
+        }, 1000)
+
+        //在方法中的this，谁调用该方法就指向谁
+        var obj = {
+            names: 'obj1',
+            sayHi: function(){
+                console.log(this);
+            }
+        }
+        obj.sayHi();  //指向obj这个对象
+
+        //e.target返回的是触发事件的元素，this返回的是绑定事件的元素(等价于e.currentTarget)
+        var ul = document.querySelector('.ul1');
+        ul.addEventListener('click', function(e){
+            console.log(e.target);//返回点击的li
+            console.log(this);//返回ul
+        });
+
+
+        //构造函数中this指向构造函数的实例
+        function Fun(){
+            console.log(this);
+        }
+        var fun1 = new Fun();  //this指向实例对象fun1
+    </script>
+</body>
+</html>

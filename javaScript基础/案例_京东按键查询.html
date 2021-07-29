@@ -1,0 +1,84 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>京东-快递单号查询</title>
+    <style>
+        .search_box {
+            position: relative;
+            width: 500px;
+            height: 300px;
+            border: 1px solid #ccc;
+            padding: 50px;
+            margin: 100px auto;
+            box-sizing: border-box;
+        }
+        .con {
+            display: none;
+            position: absolute;
+            top: 10px;
+            width: 170px;
+            height: 20px;
+            border: 1px solid rgba(0, 0, 0, 0.2);
+            box-shadow: 0 2px 4px rgba(0, 0, 0, 0.2);
+            padding: 5px 0;
+            font-size: 18px;
+            line-height: 20px;
+            color: #333;
+        }
+        .con::before {
+            content: "";
+            position: absolute;
+            top: 28px;
+            left: 5px;
+            width: 0;
+            height: 0;
+            border: 8px solid #fff;
+            /* border-style: solid dashed dashed; */
+            border-color: #fff transparent transparent;
+        }
+    </style>
+</head>
+<body>
+    <input type="text" class="search">
+    <button>搜索</button>
+
+    <div class="search_box">
+        <div class="con">123</div>
+        <input type="text" class="jd" placeholder="请输入快递单号">
+    </div>
+
+
+    <script>
+        var search = document.querySelector('.search');
+        document.addEventListener('keyup', function(e){
+            if(e.keyCode == 83){
+                //按下s，光标聚焦到搜索框
+                search.focus();
+            }
+        })
+
+        var con = document.querySelector('.con');
+        var input = document.querySelector('.jd');
+                            // 不能使用keydown,keypress
+        input.addEventListener('keyup', function(e){
+            if(this.value == ''){
+                con.style.display = 'none';
+            }else{
+                con.style.display = 'block';
+                con.innerHTML = this.value;
+            }
+        })
+        input.addEventListener('focus', function(){
+            if(this.value != ''){
+                con.style.display = 'block';
+            }
+        })
+        input.addEventListener('blur', function(){
+            con.style.display = 'none'; 
+        })
+    </script>
+</body>
+</html>

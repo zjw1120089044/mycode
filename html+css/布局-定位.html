@@ -1,0 +1,306 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>定位</title>
+    <style>
+        /* position: static;  静态定位 默认的定位方式即无定位，与标准流一致 */
+        * {
+            margin: 0;
+            padding: 0;
+        }
+        a {
+            text-decoration: none;
+        }
+        li {
+            list-style: none;
+        }
+
+        .box1 {
+            position: relative;
+            top: 100px;
+            left: 100px;
+            /* 相对定位（相对自己原先的位置），原先作为标准流的位置继续占有，不影响其他盒子 */
+            background-color: royalblue;
+            width: 200px;
+            height: 200px;
+        }
+        .box11 {
+            background-color: black;
+            width: 200px;
+            height: 200px;
+        }
+
+        .father {
+            /* 子绝父相，若要使用绝对定位，其父亲必须要用相对定位 */
+            position: relative;
+            background-color: limegreen;
+            width: 200px;
+            height: 200px;
+        }
+        .son {
+            position: absolute;
+            top: 25px;
+            left: 25px;
+            /* 绝对定位（相对其父元素的位置），若其父元素或祖先没有定位，则会以网页的相对位置定位
+               不再占有原先位置，会使元素变为'行内块元素'与浮动相似，同样不会触发外边距塌陷
+               绝对定位和固定定位会压住下方的文字和图片，而浮动只会压住盒子不会压住文字和图片 */
+            background-color: royalblue;
+            width: 50px;
+            height: 50px;
+        }
+        .son2 {
+            /* son原先的位置被son2占有，与float类似 */
+            background-color: blueviolet;
+            width: 50px;
+            height: 50px;
+        }
+
+        .box3 {
+            position: fixed;
+            top: 200px;
+            right: 10px;
+            /* 固定定位，以浏览器的 可视窗口 定位，不占有原先位置，
+               会使元素变为'行内块元素'与浮动相似，同样不会触发外边距塌陷 
+               绝对定位和固定定位会压住下方标准流所有内容，而浮动只会压住盒子不会压住文字和图片*/
+            height: 300px;
+            width: 300px;
+        }
+        .box3 img {
+            width: 100%;
+        }
+
+        .nav {
+            position: sticky;
+            top: 0;/* 当与浏览器边界达到该值时触发粘性 */
+            /* 粘性定位，以浏览器的 可视窗口 定位，占有原先位置
+               必须设置top,bottom,left,right其中之一才能起效，IE不支持 */
+            width: 1000px;
+            height: 50px;
+            margin: 5px auto;
+            background-color: orange;
+        }
+
+        .b1 {
+            position: absolute;
+            top: 700px;
+            left: 50px;
+            z-index: 1;
+            /* 叠放次序，数值可为正整数，负整数，0，默认为auto（按书写顺序），数值越大越靠上 
+               只有定位的盒子才有z-index属性*/
+            width: 300px;
+            height: 300px;
+            background-color: blue;
+        }
+        .b2 {
+            position: absolute;
+            top: 750px;
+            left: 100px;
+            width: 300px;
+            height: 300px;
+            background-color: red;
+        }
+        .b3 {
+            position: absolute;
+            top: 800px;
+            left: 150px;
+            width: 300px;
+            height: 300px; 
+            background-color: green;
+        }
+
+        .box44 {
+            position: relative;
+            border: red 4px solid;
+            width: 800px;
+            height: 500px;
+        }
+        .box4 {
+            position: absolute;
+            /* 绝对定位的盒子使用margin：auto；居中会失效 */
+            left: 50%;
+            margin-left: -150px;
+            /* 通过该方式可实现水平居中 */
+            top: 50%;
+            margin-top: -150px;
+            /* 通过该方式实现垂直居中 */
+            width: 300px;
+            height: 300px;
+            background-color: royalblue;
+        }
+        
+        .tb-promo {
+            position: relative;
+            width: 520px;
+            height: 280px;
+            margin: 100px auto;
+        }
+        .tb-promo img {
+            width: 520px;
+            height: 280px;
+        }
+        .pre {
+            position: absolute;
+            left: 0;
+            top: 50%;
+            margin-top: -15px;
+            border-radius: 0 15px 15px 0;
+            width: 20px;
+            height: 30px;
+            text-align: center;
+            line-height: 30px;
+            color: white;
+            background: rgba(255, 255, 255, 0.5);
+        }
+        .next {
+            position: absolute;
+            right: 0;
+            top: 50%;
+            margin-top: -15px;
+            border-radius: 15px 0 0 15px;
+            width: 20px;
+            height: 30px;
+            text-align: center;
+            line-height: 30px;
+            color: white;
+            background: rgba(255, 255, 255, 0.5);
+        }
+        .promo-nav {
+            position: absolute;
+            bottom: 15px;
+            left: 50%;
+            margin-left: -35px;
+            border-radius: 6.5px;
+            width: 70px;
+            height: 13px;
+            background-color: rgba(255, 255, 255, 0.5);
+        }
+        .promo-nav li {
+            float: left;
+            width: 8px;
+            height: 8px;
+            border-radius: 50%;
+            margin: 3px;
+            background-color: #fff;
+        }
+        .promo-nav .selected {
+            background-color: royalblue;
+        }
+
+        .bofang {
+            position: relative;
+            width: 520px;
+            height: 280px;
+            margin: auto;
+        }
+        .bofang img {
+            width: 100%;
+            height: 100%;
+        }
+        /* .mask */.bofang::before { 
+            content: '';
+            /* 隐藏遮罩层 */
+            display: none;
+            position: absolute;
+            width: 520px;
+            height: 280px;
+            background: rgba(255, 255, 255, 0.5) url(images/arr.png) no-repeat center;
+        }
+         .bofang:hover::before /*.mask */{ 
+            display: block;
+            /* 显示遮罩层 */
+        }
+    </style>
+</head>
+<body>
+    <div class="box1"></div>
+    <div class="box11"></div>
+
+    <div class="father">
+        <div class="son"></div>
+        <div class="son2"></div>
+    </div>
+    
+    <div class="box3">
+        <img src="images/wfbg.jpg" alt="">
+    </div>
+
+    <div class="nav">
+        导航栏
+    </div>
+
+    <div class="b1">111</div>
+    <div class="b2">222</div>
+    <div class="b3">333</div>
+
+    <p>固定定位</p>
+    <p>固定定位</p>
+    <p>固定定位</p>
+    <p>固定定位</p>
+    <p>固定定位</p>
+    <p>固定定位</p>
+    <p>固定定位</p>
+    <p>固定定位</p>
+    <p>固定定位</p>
+    <p>固定定位</p>
+    <p>固定定位</p>
+    <p>固定定位</p>
+    <p>固定定位</p>
+    <p>固定定位</p>
+    <p>固定定位</p>
+    <p>固定定位</p>
+    <p>固定定位</p>
+    <p>固定定位</p>
+    <p>固定定位</p>
+    <p>固定定位</p>
+    <p>固定定位</p>
+    <p>固定定位</p>
+
+    <div class="box44">
+        <div class="box4">
+            居中
+        </div>
+    </div>
+
+    <div class="tb-promo">
+        <img src="images/wfbg.jpg" alt="">
+        <a href="#" class="pre"> < </a>
+        <a href="#" class="next"> > </a>
+        <ul class="promo-nav">
+            <li class="selected"></li>
+            <li></li>
+            <li></li>
+            <li></li>
+            <li></li>
+        </ul>
+    </div>
+
+    <div class="bofang">
+        <!-- <div class="mask"></div> -->
+        <img src="images/wfbg.jpg" alt="">
+    </div>
+    
+    <p>固定定位</p>
+    <p>固定定位</p>
+    <p>固定定位</p>
+    <p>固定定位</p>
+    <p>固定定位</p>
+    <p>固定定位</p>
+    <p>固定定位</p>
+    <p>固定定位</p>
+    <p>固定定位</p>
+    <p>固定定位</p>
+    <p>固定定位</p>
+    <p>固定定位</p>
+    <p>固定定位</p>
+    <p>固定定位</p>
+    <p>固定定位</p>
+    <p>固定定位</p>
+    <p>固定定位</p>
+    <p>固定定位</p>
+    <p>固定定位</p>
+    <p>固定定位</p>
+</body>
+</html>

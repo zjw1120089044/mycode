@@ -1,0 +1,41 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>流式布局</title>
+    <style>
+        /* 将盒子的宽度设置成百分比来根据屏幕进行伸缩 */
+        * {
+            margin: 0;
+            padding: 0;
+        }
+        section {
+            width: 100%;
+            max-width: 1000px;
+            /* 最大宽度 屏幕宽度大于1000px时section不会再拉伸*/
+            min-width: 300px;
+            /* 最小宽度 屏幕宽度小于300px时section不会再缩小 */
+            margin: 0 auto;
+        }
+        section div {
+            float: left;
+            width: 50%;
+            height: 400px;
+        }
+        .d1 {
+            background-color: royalblue;
+        }
+        .d2 {
+            background-color: green;
+        }
+    </style>
+</head>
+<body>
+    <section>
+        <div class="d1"></div>
+        <div class="d2"></div>
+    </section>
+</body>
+</html>

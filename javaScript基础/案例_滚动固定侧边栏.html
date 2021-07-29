@@ -1,0 +1,198 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>滚动固定侧边栏</title>
+    <script src="animate.js"></script>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+        }
+        ul {
+            list-style: none;
+        }
+        .w {
+            width: 1200px;
+            margin: 10px auto;
+        }
+
+
+        .header {
+            height: 100px;
+            background-color: royalblue;
+        }
+        .banner {
+            height: 200px;
+            background-color: limegreen;
+            overflow: hidden;
+        }
+        .main {
+            height: 800px;
+            background-color: goldenrod;
+        }
+        .footer {
+            height: 200px;
+            background-color: gray;
+        }
+
+
+        .slider {
+            position: absolute;
+            top: 200px;
+            right: 0;
+            width: 70px;
+            height: 300px;
+            background-color: skyblue;
+        }
+        .goback {
+            display: none;
+            position: absolute;
+            bottom: 0;
+            width: 70px;
+            height: 50px;
+            line-height: 50px;
+            background-color: slateblue;
+        }
+
+
+        .nav {
+            position: relative;
+            width: 900px;
+            height: 42px;
+            background: gray;
+            margin: 50px auto;
+            border-radius: 5px;
+        }
+        .nav ul {
+            position: absolute;
+            z-index: 2;
+        }
+        .nav li {
+            float: left;
+            width: 83px;
+            text-align: center;
+            line-height: 42px;
+        }
+        .nav li a {
+            display: inline-block;
+            height: 42px;
+            color: #000;
+            text-decoration: none;
+        }
+        .nav li a:hover {
+            color: #fff;
+        }
+        .cloud {
+            /* display: inline-block; */
+            position: absolute;
+            left: 0;
+            top: 0;
+            width: 83px;
+            height: 40px;
+            margin-top: 1px;
+            background-color: royalblue;
+            border-radius: 21px;
+        }
+    </style>
+</head>
+<body>
+    <div class="slider">
+        <span class="goback">返回顶部</span>
+    </div>
+    <div class="header w">头部区域</div>
+    <div class="banner w">
+        导航栏
+        <div class="nav">
+            <span class="cloud"></span>
+            <ul>
+                <li><a href="#">首页新闻</a></li>
+                <li><a href="#">师资力量</a></li>
+                <li><a href="#">活动策划</a></li>
+                <li><a href="#">企业文化</a></li>
+                <li><a href="#">招聘信息</a></li>
+                <li><a href="#">公司简介</a></li>
+            </ul>
+        </div>
+    </div>
+    <div class="main w">主体</div>
+    <div class="footer">底部</div>
+
+
+    <script>
+        var slider = document.querySelector('.slider');
+        var banner = document.querySelector('.banner');
+        var main = document.querySelector('.main');
+        var goback = document.querySelector('.goback');
+        
+        var bannerTop = banner.offsetTop;
+        var sliderTop = slider.offsetTop - bannerTop;
+        var mainTop = main.offsetTop;
+
+        document.addEventListener('scroll', function(){
+
+            console.log(window.pageYOffset);  //页面上滚的高度
+
+            if(window.pageYOffset >= bannerTop){
+                slider.style.position = 'fixed';
+                slider.style.top = sliderTop + 'px';
+            }else{
+                slider.style.position = 'absolute';
+                slider.style.top = '200px';
+            }
+
+            if(window.pageYOffset >= mainTop){
+                goback.style.display = 'block';
+                
+            }else{
+                goback.style.display = 'none';
+            }
+        })
+
+        goback.addEventListener('click', function(){
+            // window.scroll(0, 0);
+                       // x, y卷去的宽度和高度，不带单位
+            animate(window, 0);
+        })
+
+        //使页面纵向移动
+        function animate(obj, target, callback){
+            clearInterval(obj.timer);
+            obj.timer = setInterval(function(){
+                var step = (target - window.pageYOffset) / 10; 
+                step = step > 0 ? Math.ceil(step) : Math.floor(step); //向上或向下取整，防止最后step变为无穷小
+                if(window.pageYOffset == target){
+                    // obj.innerHTML = '到达了' + target + 'px';
+                    clearInterval(obj.timer);
+                    
+                    // if(callback){
+                    //     // alert('执行回调函数');
+                    //     callback();
+                    // }
+                    callback && callback(); //利用短路原则
+                }else{
+                    window.scroll(0, window.pageYOffset + step);
+                }
+            }, 30);
+        }
+
+        var cloud = document.querySelector('.cloud');
+        var nav = document.querySelector('.nav');
+        var lis = document.querySelectorAll('li');
+        var current = 0;
+        for(var i = 0; i<lis.length; i++){
+            lis[i].addEventListener('mouseenter', function(){
+                animate_slow(cloud, this.offsetLeft)
+            })
+            lis[i].addEventListener('mouseleave', function(){
+                animate_slow(cloud, current)
+            })
+            lis[i].addEventListener('click', function(){
+                current = this.offsetLeft;
+            })
+        }
+    </script>
+</body>
+</html>

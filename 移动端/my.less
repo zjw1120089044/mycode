@@ -1,0 +1,33 @@
+@mycolor1: royalblue;
+@mycolor2: limegreen;
+@mycolor3: #222;
+//变量名区分大小写
+
+div {
+    background-color: @mycolor1;
+}
+
+
+//less嵌套
+.header {
+    width: 200px;
+    height: 200px;
+    background-color: @mycolor1;
+
+    a {
+        color: @mycolor3;
+        //伪类选择器写法 前面加& 伪元素同理
+        &:hover {
+            color: @mycolor2;
+        }
+
+    }
+}
+
+// less运算
+.div {
+    width: 100px * 2;
+    height: (50 / 2px);
+    border: 2.5em * 2px solid @mycolor3 + #444;
+    // 如果两个数参与运算且单位不同，结果以第一个单位为准
+}

@@ -1,0 +1,71 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>组合继承</title>
+</head>
+<body>
+    
+
+<script>
+    function fn1(x, y){
+        console.log('函数1');
+        console.log(this);  //this指向函数调用者window
+        console.log(x + y);
+    }
+
+    var obj = {
+        name: '伟'
+    }
+    // fn1();
+    // call() 可以改变函数的this指向，使其指向obj
+    fn1.call(obj, 2, 3);
+
+
+
+    function Father(uname, age){
+        this.uname = uname;
+        this.age = age;
+    }
+    Father.prototype.money = function(){
+        console.log('￥1000');
+    }
+    function Son(uname, age, score){
+                // 这里的this是指向子构造函数的实例对象，通过call()将其传给父构造函数的this
+        Father.call(this, uname, age);  //这里只能继承父亲的属性
+        this.score = score;
+    }
+
+    // Son.prototype = Father.prototype;
+    //通过直接赋值继承父亲的方法，会将父原型对象的地址传给子原型对象，导致孩子的方法也会传递给父亲
+
+    Son.prototype = new Father();  //创建一个父实例对象赋值给子原型
+    Son.prototype.constructor = Son;  //因为用父对象修改了原型对象，需要让子原型对象重新指回原来的构造函数
+
+    Son.prototype.exam = function() {
+        console.log('考试');
+    }
+
+    var s1 = new Son('儿子1', 18, 100);
+    console.log(s1);
+    s1.exam();
+    s1.money();
+
+    Father.prototype.test = function(){
+        console.log('测试');
+    }
+
+    console.log('父原型对象：');
+    console.log(Father.prototype);
+    console.log('子原型对象：');
+    console.log(Son.prototype);
+    console.log('子原型对象的原型对象：');
+    console.log(Son.prototype.__proto__);
+
+    s1.test(); //孩子仍能继承到test()
+</script>
+
+</body>
+</html>

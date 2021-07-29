@@ -1,0 +1,118 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>显示隐藏密码</title>
+    <style>
+        .box {
+            position: relative;
+            width: 500px;
+            height: 300px;
+            border: 1px solid #ccc;
+            padding: 10px;
+            margin: 100px auto;
+        }
+        .box input[type=password],
+        .box input[type=text] {
+            width: 200px;
+            height: 25px;
+            /* outline: none; */
+        }
+        .box img {
+            position: absolute;
+            top: 14px;
+            right: 210px;
+            width: 24px;
+        }
+        .message {
+            display: none;
+            font-size: 12px;
+            color: #999;
+            background: url(images/mess.png) no-repeat 5px center;
+            padding: 0 25px;
+            margin: 0;
+        }
+        .message_wrong {
+            display: inline-block;
+            color: red;
+            background: url(images/wrong.png) no-repeat 5px center;
+        }
+        .message_right {
+            display: inline-block;
+            color: limegreen;
+            background: url(images/right.png) no-repeat 5px center;
+        }
+
+        .box .username {
+            width: 200px;
+            height: 25px;
+            margin-top: 50px;
+        }
+    </style>
+</head>
+<body>
+    <div class="box">
+        <label for=""><img src="images/close.png" alt="" id="eye"></label>
+        请输入密码：<input type="password" id="pwd"><p class="message">请输入6~16位密码</p>
+
+
+        <div>
+            用户名：<input type="text" class="username">
+            <input type="checkbox" class="remember">记住用户名
+        </div>
+    
+    </div>
+
+
+    <script>
+        var eye = document.getElementById('eye');
+        var pwd = document.getElementById('pwd');
+        var message = document.querySelector('.message');
+        var flag = 0;
+        eye.onclick = function() {
+            if(flag == 0){
+                pwd.type = 'text';
+                eye.src = 'images/open.png';
+                flag = 1;
+            }else {
+                pwd.type = 'password';
+                eye.src = 'images/close.png';
+                flag = 0;
+            }
+        }
+        pwd.onfocus = function() {
+            if(this.value == '') {
+                message.style.display = 'inline-block';
+            }
+        }
+        pwd.onblur = function() {
+            if(this.value.length < 6 || this.value.length > 16){
+                message.className = 'message message_wrong';
+                message.innerHTML = '您输入的位数不对';
+            }else{
+                message.className = 'message message_right';
+                message.innerHTML = '输入正确';
+            }
+        }
+
+
+        //案例_记住用户名
+        var username = document.querySelector('.username');
+        var remember = document.querySelector('.remember');
+        if(localStorage.getItem('username')){
+            username.value = localStorage.getItem('username');
+            remember.checked = true;
+        }
+        remember.addEventListener('change', function(){
+            if(this.checked){
+                localStorage.setItem('username', username.value);
+            }else{
+                localStorage.removeItem('username');
+            }
+        })
+    </script>
+
+</body>
+</html>

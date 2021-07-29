@@ -1,0 +1,43 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>js执行机制</title>
+</head>
+<body>
+    
+
+
+    <script>
+        /* js本质上是单线程，HTML5提出Web Worker标准，允许JavaScript脚本创建多个线程，
+           但是子线程完全受主线程控制，且不得操作DOM  
+           同步任务指的是，在主线程上排队执行的任务，只有前一个任务执行完毕，才能执行后一个任务
+           异步任务，会被挂起放入子线程中的任务队列，主线程完成后才开始执行  */
+           
+        console.log(1);   //同步任务
+
+        setTimeout(function(){  //异步任务
+            console.log(2);
+        }, 0);  //计时会在页面加载时就开始，而里面的回调函数会等待主线程上的同步任务执行完成才输出
+
+        // var j = 0;
+        // for(var i = 0; i<1299999999; i++){
+        //     j=1;
+        // }
+        console.log(3);
+        console.log(4);
+
+
+        /* 异步任务会被提交给异步进程处理，只有在触发时才会被放入任务队列，
+           而主线程会不断从任务队列获得任务，再执行任务，这种机制被称为事件循环(event loop)*/
+        setTimeout(function(){
+            console.log('三秒');
+        }, 3000)
+        document.onclick = function(){
+            console.log('click');
+        }
+    </script>
+</body>
+</html>

@@ -1,0 +1,116 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>高阶函数</title>
+</head>
+<body>
+    <ul class="nav">
+        <li>111</li>
+        <li>222</li>
+        <li>333</li>
+    </ul>
+
+
+
+    <script>
+        //将一个函数作为参数传入 或 将函数作为返回值输出 的函数即为高阶函数
+        function fn(a, b, callback){
+            console.log(a + b);
+            callback && callback();
+        }
+        fn(2, 3, function(){ console.log('回调函数');});
+
+
+
+        // 闭包(closure)  一个函数访问了另一函数作用域中的变量
+        // fn2访问了fn1中的num，fn1形成了闭包
+        function fn1(){
+            var num = 10;
+
+            function fn2(){
+                console.log(num);
+            }
+            fn2();
+        }
+
+        // 闭包的应用
+
+        var lis = document.querySelector('.nav').querySelectorAll('li');
+        // for(var i = 0; i<lis.length; i++){
+        //     lis[i].index = i;
+        //     lis[i].addEventListener('click', function(){
+        //         console.log(this.index);
+        //     })
+        // }
+        
+        for(var i = 0; i<lis.length; i++){
+            (function(i){
+                lis[i].addEventListener('click', function(){
+                    console.log(i);
+                })
+
+
+                setTimeout(function(){
+                    console.log(lis[i].innerHTML);  //直接在定时器中使用i会报错
+                }, 3000)
+
+            })(i); //传入参数i
+
+        }
+        
+        // 闭包案例   打车价格：起步价(小于3公里)13元，超出后每多一公里5元，拥堵路段加10元
+        var car = (function(){   //car接收到function返回的匿名对象
+            var start = 13;
+            var total = 0;  //总价
+            return {
+                price: function(n, flag){
+                    if(n <= 3){
+                        total = start;
+                    }else{
+                        total = start + (n - 3) * 5;
+                    }
+
+                    if(flag){
+                        total = total + 10;
+                    }
+
+                    return total;
+                }
+            }
+        })();
+        console.log(car.price(5, true));
+        console.log(car.price(2, false));
+
+        var name = 'The Window';
+        var obj = {
+            name: 'The object',
+            getName: function(){
+                return function fn(){
+                    console.log(this);
+                    return this.name;
+                }
+            }
+        }
+                // obj.getName()得到的是fn，因此等价于 fn ()，此时fn的调用者为window
+        console.log( obj.getName() );
+
+
+        var name = 'The Window';
+        var obj = {
+            name: 'The object',
+            getName: function(){
+                var that = this;
+                console.log(this);
+                return function fn(){
+                    // console.log(this);
+                    return that.name;
+                }
+            }
+        }
+        console.log( obj.getName() () );
+    </script>
+</body>
+</html>

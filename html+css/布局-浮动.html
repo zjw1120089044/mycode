@@ -1,0 +1,111 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>浮动</title>
+    <style>
+        /* 浮动元素会使元素变为行内块元素*/
+        .d1 {
+            width: 100px;
+            height: 50px;
+            background-color: royalblue;
+            float: left;
+        }
+        .d2 {
+            width: 200px;
+            height: 100px;
+            background-color: limegreen;
+        }
+        .d3 {
+            width: 300px;
+            height: 200px;
+            background-color: red;
+            /* float: left; */
+            /* 浮动只会影响他后面的标准流，不会覆盖前面的标准流
+               并且只会覆盖盒子不会覆盖文字和图片，产生环绕效果 */
+        }
+
+        * {
+            padding: 0;
+            margin: 0;
+        }
+
+        .bg {
+            width: 1200px;
+            /* height: 600px;  一般标准流的父元素不会设置高度*/
+            background-color: gray;
+            margin: 0 auto;
+            
+        }
+        .left {
+            width: 250px;
+            height: 600px;
+            background-color: limegreen;
+            float: left;
+        }
+        .right {
+            width: 950px;
+            height: 600px;
+            float: right;
+            /* background-color: royalblue; */
+        }
+        .right>div {
+            width: 250px;
+            height: 300px;
+            background-color: #fff;
+            margin-left: 14px;
+            margin-bottom: 14px;
+            float: left;
+        }
+        .clear {
+            clear: both;
+            /* 清除浮动，防止标准流的父元素高度变为0 
+               也可在父元素直接添加 overflow: hidden;*/
+        }
+     /* after伪元素法清除浮动，给父元素添加
+        .clearfix:after {
+            content: "";
+            display: block;
+            height: 0;
+            clear: both;
+            visibility: hidden;
+        }
+        .clearfix {  IE6,7专有
+            *zoom: 1;
+        } */
+    
+     /* 双伪元素法，给父元素添加
+        .clearfix:before,
+        .clearfix:after {
+            content: "";
+            display: table;
+        }
+        .clearfix:after {
+            clear: both;
+        }
+        .clearfix {
+            *zoom: 1;
+        } */
+    </style>
+</head>
+<body>
+    <div class="d1">1</div>
+    <div class="d2">2</div>
+    <div class="d3">3</div>
+
+    <div class="bg">
+        <div class="left">000</div>
+        <div class="right">
+            <div class="box1">1</div>
+            <div class="box2">2</div>
+            <div class="box3">3</div>
+            <div class="box4">4</div>
+            <div class="box5">5</div>
+            <div class="box6">6</div>
+        </div>
+        <div class="clear"></div>  <!-- 隔墙法 -->
+    </div>
+</body>
+</html>

@@ -1,0 +1,145 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>样式操作</title>
+    <script src="jQuery.js"></script>
+    <style>
+        .d1 {
+            width: 200px;
+            height: 200px;
+            background-color: royalblue;
+        }
+
+        .d2 {
+            width: 100px;
+            height: 100px;
+            margin: 10px auto;
+            background-color: royalblue;
+        }
+        .current2 {
+            background-color: limegreen;
+        }
+
+        .d3 {
+            width: 100px;
+            height: 100px;
+            margin: 10px auto;
+            background-color: royalblue;
+            transition: 1s all;
+        }
+        .current3 {
+            background-color: limegreen;
+            transform: rotate(360deg);
+        }
+
+
+        * {
+            margin: 0;
+            padding: 0;
+        }
+        li {
+            list-style: none;
+        }
+
+        .tab {
+            width: 978px;
+            margin: 100px auto;
+        }
+        .tab_list {
+            height: 38px;
+            border: 1px solid #ccc;
+            background-color: #f1f1f1;
+        }
+        .tab_list li {
+            float: left;
+            height: 38px;
+            line-height: 38px;
+            padding: 0 20px;
+            text-align: center;
+            cursor: pointer;
+        }
+        .current {
+            background-color: royalblue;
+            color: #fff;
+        }
+        .item {
+            display: none;
+        }
+        .item_info {
+            display: block;
+        }
+    </style>
+    
+</head>
+<body>
+    <div class="d1"></div>
+
+    <div class="d2"></div>
+
+    <div class="d3"></div>
+
+
+    <!-- tab栏切换 -->
+    <div class="tab">
+        <div class="tab_list">
+            <ul>
+                <li class="current">商品介绍</li>
+                <li>规格与包装</li>
+                <li>售后保障</li>
+                <li>商品评价</li>
+                <li>手机社区</li>
+            </ul>
+        </div>
+
+        <div class="tab_con">
+            <div class="item_info">商品介绍模块</div>
+            <div class="item">规格与包装模块</div>
+            <div class="item">售后保障模块</div>
+            <div class="item">商品评价模块</div>
+            <div class="item">手机社区模块</div>
+        </div>
+    </div>
+
+
+    <script>
+        $(function(){
+            console.log($(".d1").css("width")); //可直接输出宽度，带单位
+            $(".d1").css("width", 300); //可直接通过数值方式修改，不需要加引号，自动添加px单位
+            $(".d1").css({ //通过对象形式修改样式
+                width: 400,
+                height: "400px",
+                backgroundColor: "limegreen"
+                //与css不同，需要采用驼峰法
+            })
+
+            //addClass()与className不同，不会覆盖原先已有的类名，与classList相似
+            $(".d2").click(function(){
+                $(this).addClass("current2"); //不需要加.
+
+                $(".d2").click(function(){
+                    $(this).removeClass("current2"); //不需要加.
+                })
+            })
+
+            //toggleClass() 切换类名
+            $(".d3").click(function(){
+                $(this).toggleClass("current3");
+            })
+
+
+            // tab栏切换
+            $(".tab_list li").click(function(){
+                $(this).addClass("current").siblings().removeClass("current");
+                
+                var index = $(this).index();
+                $(".tab_con div").eq(index).show().siblings().hide();
+            })
+
+            
+        })
+    </script>
+</body>
+</html>

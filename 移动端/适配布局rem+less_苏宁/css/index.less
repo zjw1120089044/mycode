@@ -1,0 +1,104 @@
+// 导入common.less
+@import "common";
+
+@baseFont: 50; //html中默认的font-size的大小
+
+body {
+    width: 15rem;
+    min-width: 320px;
+    margin: 0 auto;
+    line-height: 1.5;
+    font-family: Arial, Helvetica;
+    background-color: #f2f2f2;
+}
+
+
+.search_content {
+    display: flex;
+    position: fixed;
+    top: 0;
+    left: 50%;
+    transform: translateX(-50%);
+    width: 15rem;
+    height: (88rem / @baseFont); // (88px/50px)rem
+    background-color: #ffc001;
+
+    .classify {
+        width: (44rem / @baseFont);
+        height: (70rem / @baseFont);
+        margin: (11rem / @baseFont) (25rem / @baseFont) (7rem / @baseFont) (24rem / @baseFont);
+        background: url(../images/classify.png) no-repeat;
+        background-size: (44rem / @baseFont) (70rem / @baseFont);
+    }
+    .search {
+        flex: 1;
+
+        input {
+            width: 100%;
+            height: (66rem / @baseFont);
+            border: 0;
+            margin-top: (12rem / @baseFont);
+            padding-left: (55rem / @baseFont);
+            border-radius: (33rem / @baseFont);
+            background-color: #fff2cc;
+            font-size: (25rem / @baseFont);
+            color: #757575;
+            outline: none; //去除选中时的边框
+        }
+    }
+    .login {
+        width: (75rem / @baseFont);
+        height: (70rem /@baseFont);
+        margin: (10rem / @baseFont);
+        font-size: (25rem / @baseFont);
+        color: #fff;
+        text-align: center;
+        line-height: (70rem /@baseFont);
+    }
+}
+
+.banner {
+    width: (750rem / @baseFont);
+    height: (368rem / @baseFont);
+
+    img {
+        width: 100%;
+        height: 100%;
+    }
+}
+
+.ad {
+    display: flex;
+
+    a {
+        flex: 1;
+
+        img {
+            width: 100%;
+            height: 100%;
+        }
+    }
+}
+
+.nav {
+    width: (750rem / @baseFont);
+
+    a {
+        float: left;
+        width: (150rem /@baseFont);
+        height: (140rem / @baseFont);
+        text-align: center;
+
+        img {
+            display: block;
+            width: (82rem / @baseFont);
+            height: (82rem / @baseFont);
+            margin: (10rem / @baseFont) auto 0;
+        }
+        span {
+            display: block;
+            font-size: (25rem / @baseFont);
+            color: #333;
+        }
+    }
+}

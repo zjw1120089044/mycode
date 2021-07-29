@@ -1,0 +1,148 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>2D转换</title>
+    <style>
+        /* c3过渡动画需要触发条件(hover),过渡(transition) */
+        .d1 {
+            width: 200px;
+            height: 200px;
+            background-color: royalblue;
+            /* transform: translate(100px,100px) 不会影响其他元素，仍保留原先的位置; 
+                                     x轴    y轴
+            transform: translateX(100px);
+            transform: translateY(100px);  分两行写时translateY会将X覆盖 transform会层叠  */
+            transform: translate(50%,50%);/* 相对于自身宽高的50% */
+            /* 对行内元素无效 */
+        }
+        .d2 {
+            position: relative;
+            width: 600px;
+            height: 400px;
+            background-color: red;
+        }
+        .d2 p {
+            /* 实现垂直，水平居中 */
+            position: absolute;
+            top: 50%;
+            left: 50%;
+            transform: translate(-50%,-50%);
+
+            /* top: 0;
+            left: 0;
+            right: 0;
+            bottom: 0;
+            margin: auto; */
+
+            width: 100px;
+            height: 100px;
+            background-color: green;
+        }
+
+
+        .d3 img {
+            width: 80px;
+            transform: rotate(180deg);
+            /* 顺时针旋转到180度，负值为逆时针 */
+            transition: all 1s;
+        }
+        .d3 img:hover {
+            transform: rotate(360deg);
+        }
+
+
+        .d4 {
+            width: 200px;
+            height: 100px;
+            border: 1px solid slateblue;
+        }
+        .d4 p {
+            width: 200px;
+            height: 100px;
+            margin: 0;
+            background-color: slateblue;
+            transition: all 1s;
+
+            transform-origin: left bottom;
+            /* 旋转中心点 默认是50% 50%，也可使用像素 */
+        }
+        .d4:hover p {
+            transform: rotate(90deg);  
+        }
+
+
+        .d5 {
+            width: 100px;
+            height: 100px;
+            background-color: royalblue;
+            margin: 0 100px;
+            transition: all 1s;
+        }
+        .d5:hover {
+            transform: scale(0.5,2);
+                    /* 宽度0.5倍，高度2倍  只写一个则等比例缩放  不影响其他盒子
+                       transform-origin 同样对缩放中心点也有效*/
+        }
+        /* 缩放应用实例 */
+        .demo {
+            overflow: hidden;
+            width: 300px;
+            float: left;
+            margin: 10px;
+        }
+        .demo img {
+            width: 300px;
+            transition: all 0.5s;
+        }
+        .demo:hover img {
+            transform: scale(1.2);
+        }
+
+        .demo1 {
+            width: 200px;
+            height: 150px;
+            border: 1px solid black;
+        }
+        .demo1 img {
+            width: 200px;
+            transition: all 1s;
+        }
+        .demo1:hover img {
+            transform: translate(300px,-300px) rotate(180deg) scale(3,3);
+                      /* 位移要放在旋转前面，否则旋转会改变坐标轴 */
+        }
+
+        .d6 {
+            width: 300px;
+            height: 100px;
+            background-color: limegreen;
+            transition: all 1s;
+        }
+        .d6:hover {
+            transform: skew(-45deg);
+        }
+
+    </style>
+</head>
+<body>
+    <div class="d1">translate移动</div>
+    <div class="d2"><p>居中</p></div>
+
+    <div class="d3"><img src="images/warframeLogo.png" alt="">旋转</div>
+    <div class="d4"><p>旋转中心点</p></div>
+
+    <div class="d5">缩放</div>
+
+    <div style="overflow: hidden;">
+        <div class="demo"><img src="images/scale.jpg" alt=""></div>
+        <div class="demo"><img src="images/scale.jpg" alt=""></div>
+    </div>
+    
+    <div class="demo1"><img src="images/warframeLogo.png" alt=""></div>
+
+    <div class="d6">倾斜</div>
+</body>
+</html>

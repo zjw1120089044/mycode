@@ -1,0 +1,291 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>DOM高级事件</title>
+    <style>
+        .d1 {
+            width: 100px;
+            height: 100px;
+            background-color: royalblue;
+        }
+
+        [class^=father] {
+            position: relative;
+            width: 200px;
+            height: 200px;
+            margin: 10px;
+            background-color: limegreen;
+        }
+        [class^=son] {
+            position: absolute;
+            top: 50%;
+            left: 50%;
+            transform: translateX(-50%) translateY(-50%);
+            width: 100px;
+            height: 100px;
+            background-color: royalblue;
+        }
+
+        .d2 {
+            width: 100px;
+            height: 100px;
+            background-color: royalblue;
+        }
+
+        .d3 {
+            width: 100px;
+            height: 100px;
+            background-color: limegreen;
+        }
+
+
+        img {
+            position: absolute;
+        }
+    </style>
+</head>
+<body>
+    <button class="btn">通过方法监听注册事件</button>
+
+    <div class="d1">删除事件</div>
+    <div class="d1">删除监听器</div>
+    <div class="d1">3</div>
+
+    <div class="father">
+        捕获->冒泡
+        <div class="son"></div>
+    </div>
+
+    <div class="d2">点击打印event</div>
+
+    <ul class="ul1">
+        <li>111</li>
+        <li>222</li>
+        <li>333</li>
+    </ul>
+
+    <div class="d3">打印e.type</div>
+
+    <a href="https://www.baidu.com">百度</a>
+
+    <div class="father2">
+        <div class="son2">阻止冒泡</div>
+    </div>
+
+    <ul class="ul2">
+        <li>111</li>
+        <li>222</li>
+        <li>333</li>
+        <li>444</li>
+    </ul>
+
+    <div class="father3">
+        mouseover
+        <div class="son3"></div>
+    </div>
+    <div class="father4">
+        mouseenter
+        <div class="son4"></div>
+    </div>
+
+    禁止鼠标右键
+    <p>禁止选中文字</p>
+
+    <img src="images/open.png" alt="">
+
+    <script>
+        //可对同一个元素，同一事件添加多个监听器,而onclick只能添加一个
+        var btn = document.querySelector('.btn');
+        btn.onclick = function(){
+            alert('添加了onclick事件');
+        }
+        btn.addEventListener('click', function(){
+            alert('添加了click监听器');
+        })
+        // btn.attachEvent('onclick', function(){
+        //     alert('只有ie9以前的版本支持');
+        // })
+
+
+        //删除事件
+        var divs = document.querySelectorAll('.d1');
+        divs[0].onclick = function(){
+            alert('触发后通过.onclick=null删除事件');
+            divs[0].onclick = null;
+            //传统方式
+        }
+        divs[1].addEventListener('click', fun);//由于删除时需要指定函数名，因此不能使用匿名函数
+        function fun() {
+            alert("触发后通过removeEventListener('', )删除触发器");
+            divs[1].removeEventListener('click', fun);
+        }
+        // divs[2].attachEvent('onclick', fun2);
+        // function fun2() {
+        //     alert('333只有ie9以前的版本支持');
+        //     divs[2].detachEvent('onclick', fun2);
+        // }
+
+
+        /*JS代码中只能执行捕获或冒泡的其中一个阶段
+          onclick,attachEvent(ie) 只能得到冒泡阶段
+        addEventListener第三个参数为true,则处于捕获阶段 document->html->body->.father->.son */
+        var fa = document.querySelector('.father');
+        var son = document.querySelector('.son');
+        son.addEventListener('click', function(){
+            alert('son 捕获阶段');
+        }, true);
+        fa.addEventListener('click', function(){
+            alert('先弹出father 捕获阶段');
+        }, true);
+        //addEventListener第三个参数为false或省略,则处于冒泡阶段 .son->.father->body->html->document
+        son.addEventListener('click', function(){
+            alert('先弹出son 冒泡阶段');
+        }, false);
+        fa.addEventListener('click', function(){
+            alert('father 冒泡阶段');
+        }, false);
+        //有些事件没有冒泡：onblur,onfocus,onmouseenter,onmouseleave
+
+        //event事件对象  系统自动创建的形参，不需要传递参数
+        var d2 = document.querySelector('.d2');
+        d2.addEventListener('click', function(e){
+            console.log(e);
+            //为了兼容ie678，可使用 e = e || window.event;
+        });
+
+        //事件对象event的属性和方法
+        //e.target返回的是触发事件的元素，this返回的是绑定事件的元素(等价于e.currentTarget)
+        var ul = document.querySelector('.ul1');
+        ul.addEventListener('click', function(e){
+            console.log(e.target);//返回点击的li
+            console.log(this);//返回ul
+        });
+        // 兼容性处理
+        // ul.onclick = function(e){
+        //     e = e || window.event;
+        //     var target = e.target || e.srcElement;
+        //     console.log(target);
+        // }
+
+
+        //e.type返回事件类型
+        var d3 = document.querySelector('.d3');
+        d3.addEventListener('click', fun3);
+        d3.addEventListener('mouseover', fun3);
+        function fun3(e){
+            console.log(e.type);
+        }
+
+
+        //阻止默认事件， 让链接不跳转，提交按钮不提交
+        var a = document.querySelector('a');
+        a.addEventListener('click', function(e){
+            e.preventDefault();
+        })
+        //兼容性处理
+        // a.onclick = function(e){
+        //     e.preventDefault();
+        //     e.returnValue;
+        //     return false;
+        // }
+        
+        //阻止冒泡
+        var father2 = document.querySelector('.father2');
+        var son2 = document.querySelector('.son2');
+        son2.addEventListener('click', function(e){
+            alert('son');
+            e.stopPropagation();
+            //兼容性处理
+            if(e && e.stopPropagation){
+                e.stopPropagation();
+            }else{
+                window.event.cancelBubble = true;
+            }
+        })
+        father2.addEventListener('click', function(){
+            alert('father');
+        })
+
+
+        //事件委托  将监听器设置给父节点，利用冒泡影响子节点
+        var ul2 = document.querySelector('.ul2');
+        ul2.addEventListener('click', function(e){
+            alert('1234');
+            e.target.style.backgroundColor = 'royalblue';
+        })
+
+        //禁止鼠标右键菜单
+        document.addEventListener('contextmenu', function(e){
+            e.preventDefault();
+        })
+        //禁止选中文字
+        var p = document.querySelector('p');
+        p.addEventListener('selectstart', function(e){
+            e.preventDefault();
+        }) 
+
+
+        //鼠标事件对象 MouseEvent
+        document.addEventListener('click', function(e){
+            //相对于页面可视区域
+            console.log(e.clientX);
+            console.log(e.clientY);
+            console.log('-----------------');
+            //相对于页面文档的区域
+            console.log(e.pageX);
+            console.log(e.pageY);
+            console.log('-----------------');
+            //相对于电脑屏幕的区域
+            console.log(e.screenX);
+            console.log(e.screenY);
+        })
+
+        //mousemove 鼠标移动事件
+        var img = document.querySelector('img');
+        document.addEventListener('mousemove', function(e){
+            var x = e.pageX;
+            var y = e.pageY;
+            // console.log('X坐标：'+x+',Y坐标：'+y);
+            img.style.left = x + 15 +'px';
+            img.style.top = y + 15 +'px';
+        })
+
+        //mouseover与mouseenter的区别   over有冒泡，enter不会冒泡
+        //mouserover与mouseout相对应， mouseenter与mouseleave对应
+        var father3 = document.querySelector('.father3');
+        var father4 = document.querySelector('.father4');
+        father3.addEventListener('mouseover', function(){
+            console.log('触发了mouseover');
+        })
+        father4.addEventListener('mouseenter', function(){
+            console.log('触发了mouseenter');
+        })
+
+        //键盘事件
+        //keyup 按键弹起触发
+        document.addEventListener('keyup', function(){
+            console.log('按键弹起了');
+        })
+        //keydown 按键按下触发
+        document.addEventListener('keydown', function(){
+            console.log('按键down按下了');
+        })
+        //keypress 按键按下触发(不识别功能键 如ctrl,shift)
+        document.addEventListener('keypress', function(){
+            console.log('按键press按下了');
+        })
+        //三个事件的执行顺序永远是 down->press->up
+
+        //e.keyCode属性可得到按键的ASCII码值
+        document.addEventListener('keyup', function(e){
+            console.log('up：' + e.keyCode);//得到的字母均为大写字母的ASCII码值
+        })
+        document.addEventListener('keypress', function(e){
+            console.log('press:' + e.keyCode);//得到的字母区分大小写
+        })
+    </script>
+</body>
+</html>

@@ -1,0 +1,86 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>节点操作</title>
+    <style>
+
+    </style>
+</head>
+<body>
+    <div class="granfather">
+        <div class="father">
+            <div class="box"></div>
+        </div>
+    </div>
+    
+    <ul class="ul1">
+        <li>文本1</li>
+        <li>文本2</li>
+        <li>文本3</li>
+        <li>文本4</li>
+    </ul>
+    <button>删除文本</button>
+
+    <div class="d1">
+        <span class="son1">孩子1</span>
+        <span class="son2">孩子2</span>
+        <span class="son3">孩子3</span>
+    </div>
+
+
+    <script>
+        /* nodeType（节点类型：1,2,3） nodeName（节点名称） nodeValue（节点值）
+           1为元素节点
+           2为属性节点
+           3为文本节点(文字，空格，换行)  */ 
+        
+        var box = document.querySelector('.box');
+        console.log(box.parentNode); //返回最近的父节点，没有则返回null
+
+        var ul = document.querySelector('.ul1');
+        console.log(ul.childNodes);  //返回所有子节点(包括换行在内的9个子节点)，不推荐使用
+        console.log(ul.children);  //返回所有元素类型的子节点
+
+        console.log(ul.firstChild); //返回第一个子节点，包括文本节点，没有则返回null
+        console.log(ul.lastChild);
+        console.log(ul.firstElementChild);  //返回第一个子元素节点，兼容性差
+        console.log(ul.lastElementChild);
+        console.log(ul.children[0]);  //最常使用的方式
+        console.log(ul.children[ul.children.length - 1]);
+
+        var son2 = document.querySelector('.son2');
+        console.log(son2.nextSibling);  //返回下一个兄弟节点，包含文本节点，没有则返回null
+        console.log(son2.previousSibling);
+        console.log(son2.nextElementSibling);  //返回下一个兄弟元素节点，兼容性差
+        console.log(son2.previousElementSibling);
+
+        //创建元素节点
+        var myli = document.createElement('li');
+        //添加子节点  添加到指定父元素的末尾
+        ul.appendChild(myli);
+        //在指定元素前面添加节点
+        var myli2 = document.createElement('li');
+        ul.insertBefore(myli2, ul.children[0]);
+
+        //删除子节点
+        var btn = document.querySelector('button');
+        btn.onclick = function() {
+            if(ul.children.length == 0){
+                btn.disabled = true;
+            }else{
+                ul.removeChild(ul.children[0]);
+            } 
+        }
+        
+        //拷贝节点  cloneNode()浅拷贝，括号内为空或false，不复制标签里的内容
+        //         cloneNode(true)深拷贝，复制标签里的内容
+        var cloneli = ul.children[1].cloneNode();
+        var cloneli2 = ul.children[1].cloneNode(true);
+        ul.appendChild(cloneli);
+        ul.appendChild(cloneli2);
+    </script>
+</body>
+</html>

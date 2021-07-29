@@ -1,0 +1,61 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>选择器</title>
+    <style>
+
+        h1 {
+            color: blue;
+            /* 标签选择器，会修改所有标签样式 */
+        }
+
+        .green {
+            color: green;
+            /* 类选择器，通过class属性调用，最常用(不要用标签名) */
+        }
+
+        .box {
+            width: 100px;
+            height: 100px;
+            font-size: 30px;
+            /* 多类名叠加使用 */
+        }
+        .div-blue {
+            background-color: royalblue;
+        }
+        .div-green {
+            background-color: rgb(0, 212, 0);
+        }
+
+        #yellow {
+            background-color: gold;
+            /* id选择器只能调用一次，一般用于页面唯一性元素，和js搭配使用 */
+        }
+
+        * {
+            color: gray;
+            /* 通配符选择器不需要调用，给所有标签元素修改样式
+               不会覆盖已有的样式 */
+        }
+    </style>
+</head>
+<body>
+    <h1>选择器</h1>
+    <h1>选择器</h1>
+
+    <ul>
+        <li class="green">北京</li>
+        <li>上海</li>
+        <li>广东</li>
+    </ul>
+
+    <div class="div-blue box">盒子1</div>
+    <div class="div-green box">盒子2</div>
+    <div class="div-blue box">盒子3</div>
+    
+    <div id="yellow" class="box">id选择器</div>
+</body>
+</html>

@@ -1,0 +1,109 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>显示模式转换</title>
+    <style>
+        a {
+            width: 300px;
+            height: 100px;
+            /* 只有块元素才能设置高度和宽度 */
+            background-color: royalblue;
+            text-align: center;
+            font-size: 30px;
+            display: block;
+            /* 转换为块元素 */
+        }
+        .box {
+            width: 300px;
+            height: 100px;/* 高度和宽度失效 */
+            background-color:tomato;
+            display: inline;
+            /* 转换为行内元素 */
+        }
+        span {
+            width: 300px;
+            height: 100px;
+            background-color:springgreen;
+            text-align: center;
+            font-size: 30px;
+            display: inline-block;
+            /* 转换为行内块元素，一行可放多个又可调整高度和宽度 */
+        }
+
+        .d1 {
+            display: none;
+            /* 隐藏的元素不再占有原先位置 */
+            width: 200px;
+            height: 200px;
+            background-color: limegreen;
+        }
+        .d2 {
+            visibility: visible;
+            width: 200px;
+            height: 200px;
+            background-color: royalblue;
+        }
+        .d3 {
+            visibility: hidden;
+            /* 隐藏的元素仍占有原先位置 */
+            width: 200px;
+            height: 200px;
+            background-color: black;
+        }
+        .d4 {
+            overflow: visible;
+            /* visible; 为默认显示溢出 溢出部分不占有位置 */
+
+            /* overflow: scroll; */
+            /* 溢出部分显示滚动条 */
+
+            /* overflow: auto; */
+            /* 溢出时才显示滚动条，不溢出就不显示 */
+            width: 200px;
+            height: 200px;
+            border: 2px blue solid;
+        }
+        .d5 {
+            overflow: hidden;
+            /* 在有定位的盒子中谨慎使用 overflow:hidden */
+            width: 200px;
+            height: 200px;
+            border: 2px blue solid;
+        }
+    </style>
+</head>
+<body>
+    <a href="#">a转为块级元素</a>
+
+    <div class="box">div转为行内元素</div>
+    <div class="box">div转为行内元素</div>
+    <div class="box">div转为行内元素</div>
+
+    <span>span转为行内块元素</span>
+    <span>span转为行内块元素</span>
+
+    <div class="d1">display隐藏元素</div>
+    <div class="d2">visibility隐藏元素</div>
+    <div class="d3">visibility隐藏元素</div>
+    <div class="d4">
+        溢出隐藏 overflow: visible; 为默认显示溢出
+        溢出隐藏 overflow: hidden; 为溢出隐藏 
+        溢出隐藏溢出隐藏溢出隐藏溢出隐藏溢出隐藏溢出隐藏溢出隐藏
+        溢出隐藏溢出隐藏溢出隐藏溢出隐藏溢出隐藏溢出隐藏溢出隐藏
+        溢出隐藏溢出隐藏溢出隐藏溢出隐藏溢出隐藏溢出隐藏溢出隐藏
+        溢出隐藏溢出隐藏溢出隐藏溢出隐藏溢出隐藏溢出隐藏溢出隐藏
+    </div>
+    <br><br><br><br><br>
+    <div class="d5">
+        溢出隐藏 overflow: visible; 为默认显示溢出
+        溢出隐藏 overflow: hidden; 为溢出隐藏 
+        溢出隐藏溢出隐藏溢出隐藏溢出隐藏溢出隐藏溢出隐藏溢出隐藏
+        溢出隐藏溢出隐藏溢出隐藏溢出隐藏溢出隐藏溢出隐藏溢出隐藏
+        溢出隐藏溢出隐藏溢出隐藏溢出隐藏溢出隐藏溢出隐藏溢出隐藏
+        溢出隐藏溢出隐藏溢出隐藏溢出隐藏溢出隐藏溢出隐藏溢出隐藏
+    </div>
+</body>
+</html>

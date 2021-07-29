@@ -1,0 +1,129 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>动态生成表格</title>
+    <style>
+        table {
+            background-color: #fff;
+            margin: 10px auto;
+            border-collapse: collapse;
+            /* 边框合并 */
+            text-align: center;
+        }
+        table th,
+        td {
+            padding: 15px 30px;
+        }
+        thead {
+            background-color: royalblue;
+        }
+        table tbody td {
+            border-bottom: 1px solid #ccc;
+            color: blue;
+        }
+
+        button {
+            position: absolute;
+            left: 50%;
+        }
+    </style>
+</head>
+<body>
+    <table>
+        <thead>
+            <tr>
+                <th>学号</th>
+                <th>名字</th>
+                <th>科目</th>
+                <th>分数</th>
+                <th><input type="checkbox" id="checkAll">全选</th>
+                <th>操作</th>
+            </tr>
+        </thead>
+        <tbody>
+            
+        </tbody>
+    </table>
+
+
+    <script>
+        //模拟学生数据
+        var datas = [{
+            stuNO: '201701',
+            name: '学生1',
+            subject: 'java',
+            score: 100
+        }, {
+            stuNO: '201702',
+            name: '学生2',
+            subject: 'javascript',
+            score: 80
+        }, {
+            stuNO: '201703',
+            name: '学生3',
+            subject: 'html',
+            score: 90
+        }];
+
+        var tbody = document.querySelector('tbody');
+        for(var i = 0; i<datas.length; i++){
+            var tr = document.createElement('tr');
+            tbody.appendChild(tr);
+            for(var k in datas[i]){
+                //k是属性名，obj[k]是属性值
+                var td = document.createElement('td');
+                td.innerHTML = datas[i][k];
+                tr.appendChild(td);
+            }
+            var td1 = document.createElement('td');
+            td1.innerHTML = '<input type="checkbox">';
+            tr.appendChild(td1);
+            var td2 = document.createElement('td');
+            td2.innerHTML = '<a href="javascript:;">删除</a>';
+            tr.appendChild(td2);
+        }
+        var a = document.querySelectorAll('a');
+        for(var i = 0; i<a.length; i++){
+            a[i].onclick = function(){
+                tbody.removeChild(this.parentNode.parentNode);
+            }
+        }
+        
+        
+
+        //鼠标经过变色
+        var trs = document.querySelector('tbody').querySelectorAll('tr');
+        for(var i = 0; i<trs.length; i++){
+            trs[i].onmouseover = function() {
+                this.style.backgroundColor = 'skyblue';
+            }
+            trs[i].onmouseout = function() {
+                this.style.backgroundColor = '';
+            }
+        }
+        //全选
+        var checkAll = document.querySelector('#checkAll');
+        var checkTb = document.querySelector('tbody').querySelectorAll('input');
+        checkAll.onclick = function() {
+            for(var i = 0; i<checkTb.length; i++) {
+                checkTb[i].checked = this.checked;
+            }
+        }
+        for(var i = 0; i<checkTb.length; i++){
+            checkTb[i].onclick = function(){
+                var flag = true;
+                for(var j = 0; j<checkTb.length; j++){
+                    if(checkTb[j].checked == false){
+                        flag = false;
+                        break;
+                    }
+                }
+                checkAll.checked = flag;
+            }
+        }
+    </script>
+</body>
+</html>

@@ -1,0 +1,108 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>函数this</title>
+</head>
+<body>
+    <button>提交</button>
+
+
+    <script>
+        // 定义函数的方式
+        function fn(){};
+        var fn = function(){};  //匿名函数
+
+                            // ('参数1','参数2', ... ,函数体)
+        var fn = new Function('x', 'y', 'console.log(x + y)');
+        fn(2,3);
+
+        // 所有函数都是Function的实例对象
+        console.log(fn instanceof Object);  //判断是否属于Object
+
+
+        // 函数调用的方式    不同的调用方式决定了this不同的指向
+
+        // fn();    fn.call();    this指向调用者window   (window.fn())
+
+        // 对象方法   this指向对象obj
+        var obj = {
+            sayhi: function(){
+                console.log('hi!');
+                console.log(this);
+            }
+        }
+        obj.sayhi();
+
+        //构造函数   this指向实例对象p1   原型里的this也指向实例对象
+        function Person(){};
+        var p1 = new Person();
+
+        // 事件函数    this指向调用者btn
+        // btn.onclick = function(){};
+        
+        // 定时器函数   this指向调用者window
+        // setInterval(function(){}, 1000);
+
+        // 立即执行函数   this指向调用者window
+        (function(){
+            console.log('立即执行');
+        })();
+
+        
+
+
+        // call()  改变this指向，调用函数
+        var obj1 = {
+            name: '伟'
+        }
+        var fn1 = function(a, b){
+            console.log(this);
+            console.log(a + b);
+        }
+        // 改变this指向， 传参
+        fn1.call(obj1, 4, 6);
+
+
+        // apply()  与call()相似，能调用函数，改变this指向，但传递的参数必须写成数组形式
+        fn1.apply(obj1, [3, 4]);
+
+        // apply()的应用
+        var arr1 = [6, 39, 62, 23, 26, 4];
+                                //指向原调用者，即不改变this指向
+        var max = Math.max.apply(Math,arr1);
+        console.log(max);
+
+
+        // bind()  改变this指向，不会调用函数，返回不同this指向的新函数
+        var newfn = fn1.bind(obj1);
+        newfn(10, 1);
+
+        var btn = document.querySelector('button');
+        btn.addEventListener('click', function(){
+            this.disabled = true;
+            // var that = this;
+            setTimeout(function(){   //定时器中的this指向window
+                // that.disabled = false;
+                console.log(this);
+                this.disabled = false;
+            }.bind(this), 3000)
+            // 由于设置了定时器，不能立即执行该匿名函数，因此只能用bind，其中this指向btn
+            
+        })
+
+
+        function C2(){
+            this.a = 37;
+            return {a:38};
+        }
+        /*构造函数中返回了参数,如果参数是普通值(非引用类型)，则不会发生什么影响，
+        但是如果值是引用类型（如对象，数组等），则我们 new 出来的对象就会被返回的引用类型值给替换*/
+        var b = new C2();
+        console.log(b);
+        console.log(b.a); // logs 38
+    </script>
+</body>
+</html>

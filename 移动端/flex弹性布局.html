@@ -1,0 +1,128 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>flex弹性布局</title>
+    <style>
+        /* 通过给父盒子(flex容器)添加flex,来控制子盒子(flex项目)的位置和排列方式 */
+        /* 父元素设为flex布局后，子元素float，clear，vertical-align将失效 */
+        /* flex容器中的子元素将不再具有行内元素的特性 */
+
+        .d1 {
+            display: flex;
+            width: 800px;
+            height: 600px;
+            background-color: green;
+
+            flex-direction: row;
+            /* 设置主轴，默认为行  column主轴为列*/
+            /* flex-direction: row-reverse; 翻转：子元素顺序也会翻转 */
+
+            flex-wrap: wrap;
+            /* 默认为nowrap不换行，一行放不下时会将盒子宽高压缩 */
+
+            justify-content: center; /* 设置主轴上元素的排列方式， 需要先确定主轴 */
+            /* 默认为flex-start子元素从主轴头部开始排列，放不下时自动换行  
+               flex-end从尾部开始排列  center居中
+               space-around平均分配剩余空间
+               space-between先两边贴边，再平均分配  */
+
+            /* 设置侧轴元素排列方式 适用于单行(对每一行单独起效)，即nowrap */
+            align-items: center;
+            /* center侧轴居中  默认为flex-start   flex-end
+               stretch沿侧轴拉伸,子元素不能设置高度*/
+
+            /* 适用于多行，对单行无效 */
+            align-content: center;
+            /* center,  flex-start,  flex-end
+               space-around,  space-between
+               stretch */
+
+            /* flex-flow: row wrap;同时设置主轴和换行 */
+        }
+        .d1 span {
+            width: 200px;
+            height: 100px;
+            margin: 10px;
+            background-color: royalblue;
+        }
+
+        .d2 {
+            display: flex;
+            width: 80%;
+            height: 120px;
+            margin-bottom: 10px;
+            background-color: #222;
+            
+            align-items: center;
+        }
+        .d2 div:nth-child(1) {
+            width: 100px;
+            height: 100px;
+            background-color: red;
+        }
+        .d2 div:nth-child(2) {
+            flex: 1;
+            /* 分配剩余空间 */
+
+            height: 100px;
+            background-color: royalblue;
+        }
+        .d2 div:nth-child(3) {
+            width: 100px;
+            height: 100px;
+            background-color: green;
+        }
+
+        .d3 {
+            display: flex;
+            width: 80%;
+            height: 200px;
+            background-color: #222;
+
+            align-items: center;
+        }
+        .d3 span {
+            flex: 1;
+            /* 3个span每个分一份 */
+
+            height: 100px;
+            margin-right: 5px;
+            background-color: royalblue;
+        }
+        .d3 span:nth-child(2) {
+            order: -1;
+            /* 使2排列在1前面  默认为0，数值越小越靠前 */
+        }
+        .d3 span:nth-child(3) {
+            align-self: flex-end;
+            /* 单独选出第三个子元素设置侧轴排列方式 */
+        }
+    </style>
+</head>
+<body>
+    <div class="d1">
+        <span>1</span>
+        <span>2</span>
+        <span>3</span>
+        <span>4</span>
+        <span>5</span>
+        <span>6</span>
+    </div>
+
+    <div class="d2">
+        <div></div>
+        <div>圣杯布局</div>
+        <div></div>
+    </div>
+    <div class="d3">
+        <span>1</span>
+        <span>2</span>
+        <span>3</span>
+    </div>
+
+
+</body>
+</html>

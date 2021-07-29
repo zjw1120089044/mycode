@@ -1,0 +1,152 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>DOM</title>
+    
+</head>
+<body>
+    <div id="time">2021-5-4</div>
+
+    <ul>
+        <li>111</li>
+        <li>222</li>
+        <li>333</li>
+    </ul>
+    <ul>
+        <li>aaa</li>
+        <li>bbb</li>
+        <li>ccc</li>
+    </ul>
+
+    <div class="box">盒子1</div>
+    <div class="box">盒子2</div>
+
+    <button id="btn">这是按钮</button>
+
+    <div class="div1" style="background-color: royalblue;">这是时间</div>
+    <button class="btn1">显示当前时间</button>
+
+    <p>
+        这是文字
+        <span>123</span>
+    </p>
+
+    <button class="btn2">图片1</button>
+    <button class="btn3">图片2</button>
+    <button class="btn4">还原</button>
+    <img src="../html+css/images/warframeLogo.png" alt="" title="蓝">
+
+    <input type="text" value="请输入内容">
+    <button class="btn5">提交</button>
+
+    <script>
+        // 文档从上往下加载，因此要现有标签
+
+        var timer = document.getElementById('time');
+        //document指html文件，element指标签元素
+        // 返回值是element元素对象
+        console.log(timer);
+        console.dir(timer);
+        //dir 打印返回的元素对象，更好的查看属性和方法
+
+        var lis = document.getElementsByTagName('li');
+        console.log(lis);
+        // 返回获取元素对象的集合 以伪数组形式存储  如果没获取到仍返回空的伪数组
+        console.log(lis[0]);
+        for(var i = 0; i < lis.length; i++){
+            console.log(lis[i]);
+        }
+
+        var uls = document.getElementsByTagName('ul');
+        console.log(uls[1].getElementsByTagName('li'));
+                //也可通过id获取
+        
+
+        // H5新增
+        
+        var boxs = document.getElementsByClassName('box');
+        console.log(boxs);
+
+        var firstBox = document.querySelector('.box');
+        console.log(firstBox); //返回自定选择器的第一个元素
+        var firstTime = document.querySelector('#time');
+        console.log(firstTime); //返回id选择器
+        var firstLi = document.querySelector('li');
+        console.log(firstLi); //返回页面中第一个li
+
+        var allBox = document.querySelectorAll('.box');
+        console.log(allBox); //获取所有的box
+
+        var bodyEle = document.body;
+        console.log(bodyEle); //获取body中的所有内容
+        var htmlEle = document.documentElement;
+        console.log(htmlEle); //获取html中的所有内容
+
+
+
+        // 事件三要素
+        // 1.事件源(被触发的对象)  2.事件类型(如何触发，鼠标点击onclick)  3.事件处理程序
+        var btn = document.getElementById('btn');
+        btn.onclick = function() {
+            alert('你点击了按钮');
+        }
+        // btn.addEventListener('dblclick', function(){
+        //     alert('你双击了按钮');
+        // })
+
+        //innerText 修改元素内容，无法识别标签
+        var btn1 = document.querySelector('.btn1');
+        var div1 = document.querySelector('.div1');
+        btn1.onclick = function() {
+            div1.innerText = getDate();
+        }
+        function getDate() {
+            var date = new Date();
+            var year = date.getFullYear();
+            var month = date.getMonth() + 1;
+            var dates = date.getDate();
+            var arr = ['星期日','星期一','星期二','星期三','星期四','星期五','星期六']; 
+            var day = arr[date.getDay()];
+            return '今天是'+year+'年'+month+'月'+dates+'日'+day; 
+        }
+        //innerHTML 修改元素内容，可识别标签
+        div1.innerHTML = '这是<strong>时间</strong>';
+
+        // 这两个属性都可读写
+        var p = document.querySelector('p');
+        console.log(p.innerText); //去除空格和换行，无法读取标签
+        console.log(p.innerHTML); //保留空格喝换行，可读取到标签
+
+        var btn2 = document.querySelector('.btn2');
+        var btn3 = document.querySelector('.btn3');
+        var btn4 = document.querySelector('.btn4');
+        var img = document.querySelector('img');
+        btn2.onclick = function() {
+            img.src = '../html+css/images/warframeLogo1.png';
+            img.title = '绿';
+        }
+        btn3.onclick = function() {
+            img.src = '../html+css/images/warframeLogo2.png';
+            img.title = '红';
+        }
+        btn4.onclick = function() {
+            img.src = '../html+css/images/warframeLogo.png';
+            img.title = '蓝';
+        }
+
+
+        // 操作表单属性
+        var input = document.querySelector('input');
+        var btn5 = document.querySelector('.btn5');
+        btn5.onclick = function() {
+            input.value = '提交了'; //不能通过innerHTML来修改
+            //btn5.disabled = true; //开启禁用这个button
+            this.disabled = true; //与上一行等价
+            //此时this指向事件函数的调用者
+        }
+    </script>
+</body>
+</html>

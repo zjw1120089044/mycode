@@ -1,0 +1,77 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>rem适配布局</title>
+
+    <link rel="stylesheet" media="screen and (min-width:300px)" href="rem_300px.css">
+    <link rel="stylesheet" media="screen and (min-width:500px)" href="rem_500px.css">
+    <!-- 针对不同的屏幕尺寸调用不同的css文件(实际上都调用了后者覆盖了前者) -->
+
+    <style>
+        html {
+            font-size: 15px;
+        }
+        .d1 {
+            font-size: 10px;
+            width: 10rem;
+            height: 10rem;
+            /* 相对于html的字体大小，10个字体大小单位即150px */
+            background-color: royalblue;
+        }
+        .d1 p {
+            width: 10em;
+            height: 10em;
+            /* 相对于其父元素的字体大小 ，10个字体大小单位即100px */
+            background-color: limegreen;
+        }
+
+        /* 媒体查询 */
+        /* all/print/screen 所有设备/打印机/电脑,手机
+           and/not/only  且/非/只有   */
+        @media screen and (max-width:1000px) {
+                       /* 最大宽度<=1000px */
+            body {
+                background-color: skyblue;
+            }
+            html {
+                font-size: 50px;
+            }
+        }
+        @media screen and (min-width:300px) and (max-width:500px) {
+            body {
+                background-color:slateblue;
+            }
+            html {
+                font-size: 25px;
+            }
+        }
+
+        .top {
+            position: absolute;
+            top: 0;
+            width: 100%;
+            height: 1rem;
+            font-size: 0.5rem;
+            background-color: springgreen;
+            color: #fff;
+            text-align: center;
+            line-height: 1rem;
+        }
+    </style>
+</head>
+<body>
+    <div class="d1">
+        <p></p>
+    </div>
+
+    <div class="top">动态变化</div>
+
+    <div class="d2">
+        <div></div>
+        <div></div>
+    </div>
+</body>
+</html>

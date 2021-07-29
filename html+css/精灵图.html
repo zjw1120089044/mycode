@@ -1,0 +1,44 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>精灵图</title>
+    <style>
+        .box1 {
+            position: relative;
+            width: 60px;
+            height: 60px;
+            background: url(images/sprites.png) no-repeat;
+            background-color: royalblue;
+            background-position: -182px -60px;
+                             /* 在x轴方向左移 在y轴方向上移 */
+        }
+
+        .box2 {
+            /* 三角形的制作 */
+            width: 0;
+            height: 0;
+            border: 50px solid transparent;
+            border-bottom-color: royalblue;
+        }
+        .box1 span {
+            position: absolute;
+            top: 10px;
+            right: -10px;
+            width: 0;
+            height: 0;
+            border: 5px solid transparent;
+            border-left-color: royalblue;
+        }
+    </style>
+</head>
+<body>
+    <div class="box1">
+        <span></span>
+    </div>
+
+    <div class="box2"></div>
+</body>
+</html>

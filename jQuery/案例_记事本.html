@@ -1,0 +1,259 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>记事本</title>
+    <script src="jQuery.js"></script>
+
+    <style>
+        body {
+            margin: 0;
+            padding: 0;
+            font-size: 16px;
+            background: #CDCDCD;
+        }
+
+        header {
+            width: 100%;
+            height: 50px;
+            background-color: #333;
+            line-height: 50px;
+        }
+        section {
+            width: 600px;
+            margin: 0 auto;
+            font-size: 20px;
+            font-weight: 700;
+            color: #fff;
+        }
+        header label {
+            cursor: pointer;
+        }
+        #title {
+            float: right;
+            width: 350px;
+            height: 24px;
+            margin-top: 10px;
+            text-indent: 1em;
+            border-radius: 5px;
+            border: 0;
+        }
+        input:focus {
+            outline-width: 0
+        }
+
+        h2 {
+            position: relative;
+            color: #000;
+        }
+        #todocount,
+        #donecount {
+            display: inline-block;
+            position: absolute;
+            top: 2px;
+            right: 5px;
+            height: 20px;
+            padding: 0 5px;
+            border-radius: 20px;
+            background: #E6E6FA;
+            line-height: 22px;
+            text-align: center;
+            color: #666;
+            font-size: 14px;
+        }
+        ul {
+            padding: 0;
+            list-style: none;
+        }
+        li {
+            position: relative;
+            height: 32px;
+            line-height: 32px;
+            border-left: 5px solid limegreen;
+            padding: 0 45px;
+            margin-bottom: 10px;
+            background-color: #fff;
+            border-radius: 5px;
+            box-shadow: 0 5px 5px rgba(0,0,0,0.5);
+        }
+        #donelist li {
+            border-left: 5px solid #666;
+            opacity: 0.6;
+        }
+        li input {
+            position: absolute;
+            top: 2px;
+            left: 10px;
+            width: 22px;
+            height: 22px;
+            cursor: pointer;
+        }
+        li p {
+            margin: 0;
+            color: #333;
+            font-weight: 500;
+        }
+        li a {
+            display: inline-block;
+            position: absolute;
+            top: 3px;
+            right: 5px;
+            width: 14px;
+            height: 12px;
+            border: 6px double #FFF;
+            background: #CCC;
+            line-height: 14px;
+            text-align: center;
+            color: #FFF;
+            font-weight: bold;
+            font-size: 14px;
+            border-radius: 14px;
+            cursor: pointer;
+        }
+        footer {
+            color: #666;
+            font-size: 14px;
+            text-align: center;
+        }
+
+        footer a {
+            color: #666;
+            text-decoration: none;
+            color: #999;
+        }
+
+    </style>
+</head>
+<body>
+    <header>
+        <section>
+            <label for="title">记事本</label>
+            <input type="text" id="title" name="title" placeholder="添加计划">
+        </section>
+    </header>
+
+    <section>
+        <h2>正在进行  <span id="todocount">0</span></h2>
+        <ul id="todolist" class="demo_box">
+            <!-- <li>
+                <input type="checkbox">
+                <p>内容</p>
+                <a href="javascript:;"></a>
+            </li> -->
+        </ul>
+
+        <h2>已完成  <span id="donecount">0</span></h2>
+        <ul id="donelist">
+            <!-- <li>
+                <input type="checkbox">
+                <p>内容</p>
+                <a href="javascript:;"></a>
+            </li> -->
+        </ul>
+    </section>
+
+    <footer>
+        Copyright  &copy;  2021  tolist.cn
+    </footer>
+
+<script>
+    $(function(){
+        // var todolist = [{
+        //     title: "吃八个馒头",
+        //     done: true
+        // }, {
+        //     title: "复习本地存储",
+        //     done: false
+        // }];
+
+        // localStorage.setItem("todoTest", todolist);
+        // // 本地存储只能存储字符串或数据格式
+        // localStorage.setItem("todo", JSON.stringify(todolist));
+        //                             // 数组对象转换为字符串
+        
+        // var data = localStorage.getItem("todo");
+        // console.log(typeof data);
+        // console.log(data[0].title);  //由于对象转换为了字符串，因此不能对属性进行操作
+
+        // // 字符串转换为对象
+        // data = JSON.parse(data);
+        // console.log(typeof data);
+        // console.log(data[0].title);
+
+
+        load();
+        $("#title").on("keydown", function(e){
+            if(e.keyCode == 13){
+                if($(this).val() == ""){
+                    alert("内容不能为空!");
+                }else{
+                    var local = getData();
+                    // console.log(local);
+
+                    local.push({title: $(this).val(), done: false});
+                    setData(local);
+                    load();
+                    $(this).val("");
+                }
+            }
+        })
+
+        function getData() {
+            var data = localStorage.getItem("todo");
+            if(data != null){
+                return JSON.parse(data);
+            }else{
+                return [];  //返回空数组
+            }
+        }
+        function setData(data) {
+            localStorage.setItem("todo", JSON.stringify(data));
+        }
+
+        // 渲染加载数据
+        function load(){
+            var data = getData();
+            // 由于调用了两次load()，因此需要在每次添加前清空
+            $("#todolist, #donelist").empty();
+
+            var todoCount = 0;
+            var doneCount = 0;
+
+            $.each(data, function(i, e){
+                // console.log(e);
+                if(e.done){
+                    $("#donelist").prepend("<li> <input type='checkbox' checked='checked'> <p>" + e.title + "</p> <a href='javascript:;' id="+ i +"></a> </li>");
+                    doneCount++;
+                }else{
+                    $("#todolist").prepend("<li> <input type='checkbox'> <p>" + e.title + "</p> <a href='javascript:;' id="+ i +"></a> </li>");
+                    todoCount++;
+                }     
+            })
+            $("#todocount").text(todoCount);
+            $("#donecount").text(doneCount);
+        }
+
+        $("ul").on("click", "a", function(){
+            var data = getData();
+            var index = $(this).attr("id");
+
+            // splice(删除开始的索引，删除的长度)
+            data.splice(index, 1);
+            setData(data);
+            load();
+        })
+
+        $("ul").on("click", "input", function(){
+            var data = getData();
+            var index = $(this).siblings("a").attr("id");
+            data[index].done = $(this).prop("checked");
+            setData(data);
+            load();
+        })
+    })
+</script>
+
+</body>
+</html>

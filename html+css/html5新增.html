@@ -1,0 +1,62 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>html5</title>
+    <style>
+        video{
+            width: 100%;
+        }
+
+        input::placeholder {
+            color: red;
+            /* 修改提示词的颜色 */
+        }
+    </style>
+</head>
+<body>
+    <header>头部标签</header>
+    <nav>导航栏标签</nav>
+    <article>内容标签</article>
+    <section>区域标签</section>
+    <aside>侧边栏标签</aside>
+    <footer>尾部标签</footer>
+    <!-- 相当于语义化的div标签，在IE9中需要先转化成块级元素 -->
+
+    <!-- 支持三种视频格式mp4,webm,ogg，尽量使用mp4兼容性好 -->
+    <video src="media/mi.mp4" autoplay="autoplay" muted="muted" controls="controls" loop="loop" poster="media/mi9.jpg"></video>
+                         <!-- 自动播放            静音播放        显示播放控件         循环播放    视频未加载出来时的封面-->
+                             <!-- 通过muted解决浏览器禁用自动播放问题 -->
+
+    <!-- 支持mp3，ogg，wav --><!-- 浏览器会禁用自动播放，通过js解决 -->
+    <audio src="media/music.mp3" autoplay controls loop>
+    <!-- <source src="media/music.mp3" type="audio/mpeg"> 
+        <source src="media/music.ogg" type="audio/ogg">  解决不同格式兼容性问题-->
+    </audio>
+                                 
+
+<form action="">
+    <ul>
+        <li>邮箱：<input type="email"></li>
+        <li>网址：<input type="url"></li>
+        <li>日期：<input type="date"></li>
+        <li>时间：<input type="time"></li>
+        <li>月份：<input type="month"></li>
+        <li>周：<input type="week"></li>
+        <li>数量：<input type="number"></li>
+        <li>手机号码：<input type="tel"></li>
+        <li>搜索：<input type="search"></li>
+        <li>颜色：<input type="color"></li>
+        <li><input type="submit" value="提交"></li>
+    </ul>
+    <input type="search" required placeholder="提示信息" autofocus autocomplete="on">
+                    <!-- 不能为空                        自动聚焦   显示以前成功提交过的信息
+                                                                   通常设置为off-->
+    <br>
+    <input type="file" multiple><!-- 可多选文件 -->
+    <input type="submit" value="提交">
+</form>
+</body>
+</html>

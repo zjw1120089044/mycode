@@ -1,0 +1,157 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>BOM</title>
+
+    <style>
+        .d1 {
+            width: 100px;
+            height: 100px;
+            background-color: royalblue;
+        }
+
+    </style>
+
+    <script>
+        //在全局作用域下，变量都会变成window对象中的属性，函数都会变成window对象中的方法
+        var num = 10;
+        console.log(window.num);
+        function fn(){
+            console.log('函数fn');
+        }
+        fn();
+        window.fn();
+        console.dir(window);
+
+        window.onload = function(){ 
+            //load页面加载事件，文档完全加载完成后才会触发该事件，使得script可以写在页面任意位置
+            alert('文档完全加载完才执行');
+        }
+        document.addEventListener('DOMContentLoaded', function(){
+            //DOMContentLoaded适用于图片较大，或数量较多的情况，ie9以上
+            alert('DOM加载完即可执行，不包含图片，flash，css等');
+        })
+
+
+        window.addEventListener('load', function(){
+
+            var d1 = document.querySelector('.d1');
+            //resize调整窗口大小事件  可搭配响应式布局
+            window.addEventListener('resize', function(){
+                console.log(window.innerWidth);
+                if(window.innerWidth <= 800) {
+                    d1.style.display = 'none';
+                }else{
+                    d1.style.display = 'block';
+                }
+            })
+
+            //window.setTimeout(调用函数，延迟时间ms)  window可省略
+            setTimeout(function(){
+                console.log('3s时间到了');
+            }, 3000)
+            //通过给定时器起不同的标识符来区别定时器
+            var timer1 = setTimeout(fn, 4000);
+
+            //回调函数callback  普通函数按代码顺序直接调用，而回调函数需要等待时间到了再去调用
+            // setTimeout(), onclick 都是回调函数
+
+            //window.clearTimeout(定时器标识符)
+            var timer2 = setTimeout(function(){
+                console.log('5s定时器');    
+            }, 5000)
+            var btn = document.querySelector('.btn');
+            btn.addEventListener('click', function(){
+                clearTimeout(timer2);
+            })
+
+            //window.setInterval(回调函数，延迟时间)  每隔一段时间调用一次
+            setInterval(function(){
+                console.log('三秒过去了');
+            }, 3000)
+
+            //window.clearInterval(定时器标识符)
+            var btn1 = document.querySelector('.begin');
+            var btn2 = document.querySelector('.stop');
+            var timer3 = null; //null是一个空对象
+            btn1.addEventListener('click', function(){
+                timer3 = setInterval(function(){
+                    console.log('Interval定时器开始了');
+                }, 1000);
+            });
+            btn2.addEventListener('click', function(){
+                clearInterval(timer3);
+                console.log('Interval定时器停止了');
+            })
+
+
+            //window.location   href(整个url链接)  host(主机域名)  port(端口号)  pathname(路径)  search(参数)  hash(#后的内容，常用于锚点)
+            var btn3 = document.querySelector('.btn3');
+            btn3.addEventListener('click', function(){
+                location.href = 'https://www.baidu.com';
+            })
+            //自动跳转
+            var timer4 = 5;
+            var d2 = document.querySelector('.d2');
+            setInterval(function(){
+                if(timer4 == 0){
+                    // location.href = 'https://www.baidu.com';
+                }else{
+                    d2.innerHTML = '您将在'+timer4+'秒后跳转';
+                    timer4--;
+                }
+            }, 1000)
+
+            
+            var btn4 = document.querySelector('.btn4');
+            btn4.addEventListener('click', function(){
+                location.assign('https://www.baidu.com');
+                //记录浏览历史，可实现后退功能
+
+                // location.replace('https://www.baidu.com');
+                //不记录浏览历史，不可后退
+
+                // location.reload();
+                //重新加载页面  若参数为true强制刷新
+            })
+
+            //window.navigator
+            //判断用户在哪个终端打开页面，实现跳转
+            if ((navigator.userAgent.match(/(phone|pad|pod|iPhone|iPod|ios|iPad|Android|Mobile|BlackBerry|IEMobile|MQQBrowser|JUC|Fennec|wOSBrowser|BrowserNG|WebOS|Symbian|Windows Phone)/i))) {
+                window.location.href = "../移动端/流式布局%_京东/index.html"; //手机
+            }
+
+            //window.history
+            var btn5 = document.querySelector('.btn5');
+            btn.addEventListener('click', function(){
+                // history.forward(); 
+                //前进
+                // history.back(); 
+                //后退
+                history.go(1);
+                //前进1步，参数为-1时后退1步
+            })
+        })
+        
+    </script>
+
+</head>
+<body>
+    <div class="d1">窗口宽度小于800px隐藏</div>
+
+    <button class="btn">停止定时器Timeout</button>
+    
+    <button class="begin">开始定时器Interval</button>
+    <button class="stop">停止定时器Interval</button>
+
+    <button class="btn3">跳转</button>
+    <div class="d2">您将在5秒后跳转</div>
+
+    <button class="btn4">点击</button>
+
+    <button class="btn5">前进，后退</button>
+</body>
+</html>

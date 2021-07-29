@@ -1,0 +1,111 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>jquery基本使用</title>
+    <script src="jQuery.js"></script>
+    <style>
+        .d1 {
+            width: 200px;
+            height: 200px;
+            background-color: royalblue;
+        }
+    </style>
+</head>
+<body>
+    <div class="d1"></div>
+
+    <video src="../javaScript/video/mov.mp4" muted></video>
+
+    <ul>
+        <li>相同操作</li>
+        <li>相同操作</li>
+        <li>相同操作</li>
+    </ul>
+    <ol class="ol1">
+        <li>aaa</li>
+        <li>aaa</li>
+        <li>aaa</li>
+        <li>aaa</li>
+        <li>aaa</li>
+        <li>aaa</li>
+    </ol>
+
+    <div class="granfather">
+        <div class="father">
+            <div class="son">儿子</div>
+        </div>
+    </div>
+
+    <ol class="ol2">
+        <li class="item">siblings</li>
+        <li>siblings</li>
+        <li>siblings</li>
+        <li class="current">siblings</li>
+        <li>siblings</li>
+        <li>siblings</li>
+    </ol>
+
+    <script>
+        //jquery入口函数  等页面DOM加载完毕再执行js，相当于DOMContentLoaded与load不同
+        $(document).ready(function(){
+            $('.d1').hide();
+        })
+        //简写
+        $(function(){
+            $('.d1').hide();
+        })
+
+        //其中 $ 是jQuery的别称，等同于 jQuery(function(){})
+        //$是jQuery中的顶级对象，相当于js中的window
+
+        
+        var div1 = document.querySelector('.d1');
+        console.dir(div1); //DOM对象
+
+        $('.d1'); //$('.d1') 是jQuery对象
+        console.dir($('.d1'));
+        //本质是利用$对DOM对象包装后产生的对象（伪数组形式存储）
+        //jQuery对象只能使用jQuery方法，DOM对象也只能使用原生js的属性和方法
+
+        //DOM对象转换为jQuery对象
+        var myVideo = document.querySelector('video');
+        $(myVideo); // 同样只能使用jQuery的方法
+
+        //jQuery对象转换为DOM对象  [index]为索引
+        $('video')[0].play();
+        $('video').get(0).play();
+
+        //jQuery选择器与css选择器用法相同
+
+        //隐式迭代  把匹配的所有元素内部进行遍历循环，给每个元素添加css方法
+        console.log($("ul li")); //获取三个li
+        $("ul li").css("background", "royalblue");
+
+        $("ul li:first").css("color", "white");
+        $("ul li:eq(1)").css("color", "red"); //索引从0开始
+        $("ul li").eq(2).css("color", "limegreen"); //也可通过eq方法，方便在eq中传入变量
+
+        $(".ol1 li:odd").css("color", "red"); //选出索引为奇数的
+        $(".ol1 li:even").css("color", "blue"); //选出索引为偶数的
+
+        console.log($(".son").parent());
+        //返回最近一级的父元素
+        console.log($(".granfather").children("div"));
+        //返回最近一级的子元素，相当于ul>li
+        console.log($(".granfather").find("div"));
+        //返回所有子元素，包括子代和孙子代
+        console.log($(".son").parents());
+        //返回所有祖先元素
+
+        $(".ol2 .item").siblings("li").css("color", "royalblue");
+        //选出兄弟节点，不包括自己
+        $(".ol2 .current").nextAll().css("background", "red");
+        //查找当前元素之后的兄弟元素
+        $(".ol2 .current").prevAll().css("background", "limegreen");
+        //查找当前元素之前的兄弟元素
+    </script>
+</body>
+</html>

@@ -1,0 +1,75 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>复合选择器</title>
+    <style>
+        ul li {
+            color: green;
+        }
+        ol li a {
+            color: red;
+        }
+        .one li {
+            color: royalblue;
+        } /* 后代选择器 ，子级和孙子级中的所有li都会被选中*/
+
+        div>a {
+            color: slateblue;
+        } /* 子选择器 */
+
+        .d1,
+        .city,
+        .city a {
+            color: springgreen;
+        } /* 并集选择器, 语法规范上竖着写 */
+
+    </style>
+</head>
+
+<body>
+    <ul>
+        不会改变父级的样式
+        <li>ul的子级</li>
+        <li>ul的子级</li>
+        <li>ul的子级</li>
+        <li><a href="#">ul li的链接</a></li>
+    </ul>
+    <ol>
+        <li>ol的子级</li>
+        <li>ol的子级</li>
+        <li>ol的子级</li>
+        <li><a href="#">ol li的链接</a></li>
+    </ol>
+    <ol class="one">
+        <li>one的子级</li>
+        <li>one的子级</li>
+        <li>one的子级</li>
+        <li><a href="#">one li的链接</a></li>
+        <div>
+            <li>one的孙子级</li>
+        </div>
+    </ol>
+
+    <div>
+        <a href="#">儿子1</a>
+        <p>
+            pppppppppp
+            <a href="#">孙子</a>
+        </p>
+        <a href="#">儿子2</a>
+    </div>
+
+    <div class="d1">
+        北京
+        <span>d1的子级</span>
+    </div>
+    <p class="city">上海</p>
+    <p class="city">广东</p>
+    <p class="city"><a href="#">河南</a></p>
+
+</body>
+
+</html>

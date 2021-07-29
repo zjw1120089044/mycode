@@ -1,0 +1,150 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>jQuery事件</title>
+    <script src="jQuery.js"></script>
+    <style>
+        .d1 {
+            width: 100px;
+            height: 100px;
+            background-color: royalblue;
+        }
+        .current {
+            font-size: 20px;
+            font-weight: 700;
+        }
+        .d2 {
+            width: 100px;
+            height: 100px;
+            background-color: limegreen;
+            margin: 10px;
+        }
+
+        .father {
+            width: 200px;
+            height: 200px;
+            background-color: royalblue;
+        }
+        .son {
+            width: 100px;
+            height: 100px;
+            background-color: limegreen;
+        }
+    </style>
+</head>
+<body>
+    <div class="d1">事件处理on()</div>
+
+    <ul class="ul1">
+        <li>事件委托</li>
+        <li>事件委托</li>
+        <li>事件委托</li>
+        <li>事件委托</li>
+    </ul>
+
+    <p>只能点击一次</p>
+
+    <div class="d2">triggle</div>
+    <input type="text">
+
+    <div class="father">
+        <div class="son">事件对象</div>
+    </div>
+
+<script>
+    $(function(){
+
+        // 事件处理on()
+        $(".d1").on({
+            mouseenter: function(){
+                $(this).css("background", "skyblue");
+            },
+            click: function(){
+                $(this).css("background", "blue");
+            },
+            mouseleave: function(){
+                $(this).css("background", "royalblue");
+            }
+        })
+        // 多个事件绑定一个方法
+        $(".d1").on("mouseenter mouseleave", function(){
+            $(this).toggleClass("current");
+        })
+        // 事件委托，与冒泡原理相似
+        $(".ul1").on("click", "li", function(){
+            alert("事件委托");
+        })
+        // 还可以给动态创建的元素绑定
+        var li = $("<li>动态创建的li</li>");
+        $(".ul1").append(li);
+
+
+        // 事件解绑
+        // $(".d1").off();  //解除d1绑定的所有事件
+        // $(".d1").off("click");  //解除指定事件
+        // $(".ul1").off("click", "li");  //解除事件委托
+
+        // one()  只能触发一次
+        $("p").one("click", function(){
+            alert("one()");
+        })
+
+        // trigger()自动触发事件
+        $(".d2").on("click", function(){
+            alert("自动触发的事件");
+        })
+        // $(".d2").click();
+        // $(".d2").trigger("click");
+        $(".d2").triggerHandler("click");  //不会触发元素默认行为
+
+        $("input").on("focus", function(){
+            $(this).val("获得了焦点");
+        })
+        $("input").triggerHandler("focus"); //不会触发默认的光标闪烁
+
+
+
+        // 事件对象
+        $(".father").on("click", function(){
+            console.log("点击了father");
+        })
+        $(".son").on("click", function(event){
+            console.log("点击了son");
+            event.stopPropagation();  //停止冒泡
+            event.preventDefault();  //阻止默认行为，与js中的event相同
+        })
+
+        // extend()对象拷贝
+        var targetobj = {
+            id: 0,
+            message: {
+                sex: "男"
+            }
+        };
+        var obj = {
+            id: 1,
+            name: "www",
+            message: {
+                age: 18
+            }
+        };
+        //浅拷贝  在拷贝复杂数据类型时，传递的是地址(即message: 0x54ff46)，因此修改会改变原值
+        // $.extend(targetobj, obj);
+        // console.log(targetobj);
+        // targetobj.message.age = 20;
+        // console.log(obj);
+
+        // 深拷贝  会把数据完全复制给目标对象，不冲突的属性会被合并
+        $.extend(true, targetobj, obj);
+        console.log(targetobj);
+        targetobj.message.age = 20;
+        console.log(obj);
+        console.log(targetobj);
+    })
+</script>
+
+</body>
+</html>

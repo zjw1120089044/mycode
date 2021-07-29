@@ -1,0 +1,71 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>响应式布局</title>
+    <style>
+
+        * {
+            margin: 0;
+            padding: 0;
+        }
+        ul {
+            list-style: none;
+        }
+
+        .container {
+            height: 150px;
+            margin: 0 auto;
+            background-color: royalblue;
+        }
+        .container ul li {
+            float: left;
+            width: 93px;
+            height: 30px;
+            background-color: limegreen
+        }
+
+        /* 超小屏幕(手机)  <768px   容器宽度100% */
+        @media screen and (max-width: 767px) {
+            .container {
+                width: 100%;
+            }
+            .container ul li {
+                width: 33.33%;
+            }
+        }
+        /* 小屏幕(平板)  >=768px   容器宽度为750px */
+        @media screen and (min-width: 768px) {
+            .container {
+                width: 750px;
+            }
+        }
+        /* 中等屏幕(桌面显示器)  >=992px   容器宽度970px */
+        @media screen and (min-width: 992px) {
+            .container {
+                width: 970px;
+            }
+        }
+        /* 大屏幕(宽屏显示器)  >=1200px   容器宽度1170px */
+        @media screen and (min-width: 1200px) {
+            .container {
+                width: 1170px;
+            }
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <ul>
+            <li>导航栏</li>
+            <li>导航栏</li>
+            <li>导航栏</li>
+            <li>导航栏</li>
+            <li>导航栏</li>
+            <li>导航栏</li>
+        </ul>
+    </div>
+</body>
+</html>

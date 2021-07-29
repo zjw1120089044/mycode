@@ -1,0 +1,52 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>字体</title>
+    <style>
+
+        h2 {
+            font-family: '微软雅黑',宋体,'Microsoft YaHei','Hiragino Sans GB';
+            /* 浏览器中若没有改字体则寻找下一个，若都没有则显示默认字体 
+               一般将该属性放到body中*/
+            font-weight: 400;
+        }
+
+        body {
+            font-size: 20px;
+            /* 标体标签需要单独指定大小，不能省略单位 */
+        }
+
+        .bold {
+            font-weight: 700;
+            /* 等价于font-weight: bold; 常用数字,后面不需要单位,正常字体为400(normal)*/
+        }
+
+        .italic {
+            font-style: italic;
+            /* 常用于将斜体改为正常字体 */
+        }
+        em {
+            font-style: normal;
+        }
+
+        div {
+            /* font: style weight size/line-height family */
+            font: italic 700 50px/1.5 '宋体';
+            /* 复合属性，顺序不能更改，必须有size和family其他可省略 */
+        }
+
+    </style>
+</head>
+<body>
+    <h2>微软雅黑</h2>
+    <p>字体大小</p>
+    <p>字体大小</p>
+    <p class="bold">字体加粗</p>
+    <p class="italic">字体样式</p>
+    <em>倾斜字体</em>
+    <div>复合属性</div>
+</body>
+</html>

@@ -1,0 +1,76 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>本地存储</title>
+</head>
+<body>
+    <!-- sessionStorage -->
+    <input type="text" class="input1">
+    <button class="set">存储数据</button>
+    <button class="get">获取数据</button>
+    <button class="remove">删除数据</button>
+    <button class="del">清除所有数据</button>
+
+    <br><br>
+
+    <!-- localStorage -->
+    <input type="text" class="input2">
+    <button class="set2">存储数据</button>
+    <button class="get2">获取数据</button>
+    <button class="remove2">删除数据</button>
+    <button class="del2">清除所有数据</button>
+
+
+    <script>
+        var input1 = document.querySelector('.input1');
+        var set = document.querySelector('.set');
+        var get = document.querySelector('.get');
+        var remove = document.querySelector('.remove');
+        var del = document.querySelector('.del');
+
+        //sessionStorage  生命周期为关闭浏览器窗口(刷新不消失)，同一窗口(页面)下数据共享
+        set.addEventListener('click', function(){
+            var val = input1.value;
+            sessionStorage.setItem('uname', val);
+                        //以键值对 key, value的形式存储在Application的Storage中
+            sessionStorage.setItem('pwd', val);
+        })
+        get.addEventListener('click', function(){
+            console.log(sessionStorage.getItem('uname'));
+        })
+        remove.addEventListener('click', function(){
+            sessionStorage.removeItem('uname');
+        })
+        del.addEventListener('click', function(){
+            sessionStorage.clear();
+        })
+
+
+        //localStorage  生命周期永久生效(除非手动删除)，可多窗口(页面)共享(同一浏览器)
+        var input2 = document.querySelector('.input2');
+        var set2 = document.querySelector('.set2');
+        var get2 = document.querySelector('.get2');
+        var remove2 = document.querySelector('.remove2');
+        var del2 = document.querySelector('.del2');
+
+        set2.addEventListener('click', function(){
+            var val = input2.value;
+            localStorage.setItem('username', val);
+                        //以键值对 key, value的形式存储在Application的Storage中
+            localStorage.setItem('password', val);
+        })
+        get2.addEventListener('click', function(){
+            console.log(localStorage.getItem('username'));
+        })
+        remove2.addEventListener('click', function(){
+            localStorage.removeItem('username');
+        })
+        del2.addEventListener('click', function(){
+            localStorage.clear();
+        })
+    </script>
+</body>
+</html>

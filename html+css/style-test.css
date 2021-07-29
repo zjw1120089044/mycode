@@ -1,0 +1,22 @@
+/* 只有样式没有标签,不需要<style> */
+div {
+    text-align: center;
+    color: royalblue;
+    font-size: 12px;
+}
+h1 {
+    text-align: center;
+}
+p {
+    text-indent: 2em;
+}
+a {
+    text-decoration: none;
+}
+body {
+    font: 16px '微软雅黑';
+}
+.search {
+    color: gray;
+    width: 160px;
+}

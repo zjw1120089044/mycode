@@ -1,0 +1,172 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>css3</title>
+    <style>
+
+        @font-face {
+            font-family: 'icomoon';
+            src: url('fonts/icomoon.eot?1lv3na');
+            src: url('fonts/icomoon.eot?1lv3na#iefix') format('embedded-opentype'),
+                url('fonts/icomoon.ttf?1lv3na') format('truetype'),
+                url('fonts/icomoon.woff?1lv3na') format('woff'),
+                url('fonts/icomoon.svg?1lv3na#icomoon') format('svg');
+            font-weight: normal;
+            font-style: normal;
+            font-display: block;
+        }
+
+        /* 属性选择器 优先级与类选择器相同都是10 */
+        input[value] { /* 因为前面有input标签选择器，因此权重为11 */
+            color: red;
+        }
+
+        /* 属性值选择器 */
+        input[type=password] {
+            color: blue;
+        }
+
+        /* 选出以icon开头的属性值 */
+        div[class^=icon] {
+            color: green;
+        }
+        /* 选出以date结尾的属性值 */
+        div[class$=data] {
+            color: blueviolet;
+        }
+        /* 选出包含ter的属性值 */
+        div[class*=ter] {
+            text-decoration: line-through;
+        }
+
+        /* 所有孩子必须是相同的元素，即li ,伪类选择器权重为10 */
+        ul li:first-child { /* 权重为12，1+1+10 */
+            background-color: royalblue;
+        }
+        ul li:last-child {
+            background-color: royalblue;
+        }
+        ul li:nth-child(3) {
+            background-color: red;
+        }
+        ul li:nth-child(even) {
+            /* 选出第偶数个子元素  奇数为odd */
+            background-color: gray;
+        }
+        ol li:nth-child(5n) {
+            /* 必须是n，不能是其他字母，n的值从0开始0，1，2，3，4，5 */
+            background-color: royalblue;
+        }
+
+        /* 选出孩子中指定元素的第一个， 由于section的第一个孩子为p此时使用div:nth-child(1)会失效 */
+        section div:nth-of-type(1){
+                /* first-of-type,last-of-type */
+            background-color: royalblue;
+        }
+
+        .box1 {
+            width: 200px;
+            height: 200px;
+            background-color: gray;
+        }
+        /* 伪元素选择器属于 行内元素，权重为1 */
+        .box1::before { /* 权重为2 */
+            content: '伪元素before';/* 必须要有content才能起效*/
+            display: inline-block;/* 伪元素选择器属于 行内元素*/
+            width: 50px;
+            height: 50px;
+            background-color: royalblue;
+        }
+        .box1::after {
+            font-family: 'icomoon';/* 伪元素选择器主要为了搭配字体图标使用 */
+            content: '伪元素after\e91e';
+            display: inline-block;
+            width: 50px;
+            height: 50px;
+            background-color: royalblue;
+        }
+
+        .box2 {
+            width: 200px;
+            height: 200px;
+            padding: 10px;
+            border: 10px red solid;
+            background-color: royalblue;
+            box-sizing: border-box;/* border和padding不会撑大盒子 */
+                /* 默认为content-box会撑大盒子 */
+        }
+
+        img {
+            width: calc(100% - 500px);/* 通过计算函数可相对父盒子实时调整宽度 */
+            height: 500px;
+            filter: blur(5px);
+            /* 图片模糊处理 */
+        }
+        img:hover {
+            filter: blur(0);
+        }
+
+        .box3 {
+            width: 300px;
+            height: 200px;
+            background-color: royalblue;
+            transition: width      1s      ease   0s  , height 1s;
+                     /* 变化的属性 花费时间 运动曲线 何时开始 */
+            transition: all 1s;/* all可以使所有属性渐变 */
+        }
+        .box3:hover {
+            width: 500px;
+            height: 500px;
+            border-radius: 0 100px 100px 0;
+            background-color: limegreen;
+        }
+    </style>
+</head>
+<body>
+    <input type="text" value="请输入用户名">
+    <input type="password">
+
+    <div class="icon1">图标1</div>
+    <div class="icon2">图标2</div>
+    <div class="icon3">图标3</div>
+    <div class="footer">尾部</div>
+    <div class="footer1_data">角标1</div>
+    <div class="footer2_data">角标2</div>
+
+    <ul>
+        <li>第一个孩子</li>
+        <li>第二个</li>
+        <li>第三个</li>
+        <li>第四个</li>
+        <li>最后一个孩子</li>
+    </ul>
+    <ol>
+        <li>第一个孩子</li>
+        <li>第二个</li>
+        <li>第三个</li>
+        <li>第四个</li>
+        <li>最后一个孩子</li>
+    </ol>
+
+    <section>
+        <p>第一个孩子</p>
+        <div>第一个子盒子</div>
+        <div>第二个</div>
+    </section>
+
+    <div class="box1">
+        aaaaaaa
+    </div>
+
+    <div class="box2">
+        不会撑大盒子
+    </div>
+
+    <div class="box3">属性过渡</div>
+
+    <img src="images/wfbg.jpg" alt="">
+</body>
+</html>

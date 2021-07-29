@@ -1,0 +1,241 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>动画</title>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+        }
+        body {
+            background-color: #ccc;
+        }
+        /* 定义动画 */
+        @keyframes move {
+            /* 开始状态 */
+            0%{ /* 等价于from */
+                transform: translate(0);
+            }
+            25%{
+                transform: translate(1250px,0);
+            }
+            50%{
+                transform: translate(1000px,500px);
+            }
+            75%{
+                transform: translate(0,500px);
+            }
+            /* 结束状态 */
+            100%{ /* 等价于to */
+                transform: translate(0);
+            }
+        }
+        .d1 {
+            position: absolute;
+            z-index: 2;
+            width: 100px;
+            height: 100px;
+            background-color: royalblue;
+            animation-name: move;
+            /* 动画名称 */
+            animation-duration: 5s;
+            /* 持续时间 */
+            animation-timing-function: ease;
+            /* 运动速率曲线 */
+            animation-delay: 0.5s;
+            /* 何时开始 */
+            animation-iteration-count: infinite;
+            /* 重复次数 */
+            animation-direction: alternate;
+            /* 是否反向播放  默认为normal */
+            
+            /* animation-fill-mode: forwards; */
+            /* 动画结束后状态     停留在结束状态   默认为backwards */
+
+            /* animation: move 5s linear 0s infinite alternate forwards; */
+            /* 前两个属性不能省略 */
+        }
+        .d1:hover {
+            animation-play-state: paused;
+            /* 鼠标经过停止动画，离开就继续 */
+        }
+
+        /* 运动速率曲线 步长steps() */
+        .d2 {
+            overflow: hidden;
+            width: 0;
+            height: 30px;
+            background-color: royalblue;
+            font-size: 20px;
+            white-space: nowrap;
+            animation: w 2s steps(10) forwards;
+        }
+        @keyframes w {
+            0%{
+                width: 0;
+            }
+            100%{
+                width: 220px;
+            }
+        }
+
+
+        .map {
+            position: relative;
+            width: 747px;
+            height: 616px;
+            margin: 0 auto;
+            background: url(images/map.png) no-repeat;
+            background-color: #333;
+        }
+        .city {
+            position: absolute;
+            top: 227px;
+            right: 193px;
+        }
+        .taibei {
+            top: 500px;
+            right: 80px;
+        }
+        .guangzhou {
+            top: 526px;
+            right: 174px;
+        }
+
+        .dotted {
+            width: 8px;
+            height: 8px;
+            background-color: #09f;
+            border-radius: 50%;
+        }
+        .city div[class^="ripple"] {
+            position: absolute;
+            top: 50%;
+            left: 50%;
+            transform: translate(-50%,-50%);
+            width: 8px;
+            height: 8px;
+            border-radius: 50%;
+            box-shadow: 0 0 12px #009dfd;
+            animation: ripple 1.5s linear infinite;
+        }
+        .city div.ripple2 {
+            animation-delay: 0.4s;
+        }
+        .city div.ripple3 {
+            animation-delay: 0.8s;
+        }
+        @keyframes ripple {
+            0%{}
+            50%{
+                width: 40px;
+                height: 40px;
+                opacity: 1;
+            }
+            100%{
+                width: 70px;
+                height: 70px;
+                opacity: 0;
+            }
+        }
+
+
+        .d3 {
+            overflow: hidden;
+            position: relative;
+            width: 100%;
+            height: 600px;
+        }
+        .bear {
+            position: absolute;
+            bottom: 0;
+            z-index: 3;
+            width: 200px;
+            height: 100px;
+            background: url(images/bear.png) no-repeat;
+            animation: bear 0.5s steps(8) infinite, move1 2s linear forwards;
+        }
+        @keyframes bear {
+            0%{
+                background-position: 0 0;
+            }
+            100%{
+                background-position: -1600px 0;
+            }
+        }
+        @keyframes move1 {
+            0%{
+                left: 0;
+                transform: translateX(0);
+            }
+            100%{
+                left: 50%;
+                transform: translateX(-50%);
+            }
+        }
+        .mountain1 {
+            position: absolute;
+            left: 0;
+            bottom: 0;
+            z-index: 2;
+            width: 3840px;
+            height: 336px;
+            background: url(images/bear_bg1.png) no-repeat;
+            animation: mountain 5s steps(1000) infinite;
+        }
+        .mountain2 {
+            position: absolute;
+            left: 0;
+            bottom: 0;
+            z-index: 1;
+            width: 3840px;
+            height: 569px;
+            background: url(images/bear_bg2.png) no-repeat;
+            animation: mountain 5s steps(1000) infinite;
+        }
+        @keyframes mountain {
+            0%{
+                left: 0;
+            }
+            100%{
+                left: -2491px;;
+            }
+        }
+    </style>
+</head>
+<body>
+    <div class="d1"></div>
+
+    <div class="d2">运动速率曲线 步长steps()</div>
+
+    <div class="map">
+        <div class="city">
+            <div class="dotted"></div>
+            <div class="ripple1"></div>
+            <div class="ripple2"></div>
+            <div class="ripple3"></div>
+        </div>
+        <div class="city taibei">
+            <div class="dotted"></div>
+            <div class="ripple1"></div>
+            <div class="ripple2"></div>
+            <div class="ripple3"></div>
+        </div>
+        <div class="city guangzhou">
+            <div class="dotted"></div>
+            <div class="ripple1"></div>
+            <div class="ripple2"></div>
+            <div class="ripple3"></div>
+        </div>
+    </div>
+
+    <div class="d3">
+        <div class="bear"></div>
+        <div class="mountain1"></div>
+        <div class="mountain2"></div>
+    </div>
+</body>
+</html>

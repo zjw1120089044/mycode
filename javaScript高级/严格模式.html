@@ -1,0 +1,45 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>严格模式</title>
+</head>
+<body>
+    
+
+    <script>
+        'use strict';  //给整个js脚本设置严格模式    ie10以上兼容
+
+        (function(){
+            'use strict';   //给函数设置严格模式
+
+        })()
+
+
+        //变量必须先声明才能使用
+        //不能随意删除已声明好的变量
+        //全局作用域中函数中的this指向undefined，不再是window
+        function fn(){
+            console.log(this);
+        }
+        fn();
+
+        // 构造函数必须加new调用，否则this会报错
+        function Person(){
+            this.name = '伟';
+        }
+        var p1 = new Person();
+
+        // 定时器中的this，仍指向window
+        setTimeout(function(){
+            console.log(this);
+        }, 1000)
+
+        // 事件，对象仍指向调用者
+
+        // 函数必须声明在顶层，或嵌套在函数内，不允许嵌套在if或for中
+    </script>
+</body>
+</html>

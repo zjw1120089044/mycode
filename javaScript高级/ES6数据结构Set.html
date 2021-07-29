@@ -1,0 +1,51 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Set数据结构</title>
+</head>
+<body>
+    
+
+
+<script>
+    // Set() 数据结构 类似数组 ，但成员唯一 ，不允许有重复的值
+    const s1 = new Set();
+    console.log(s1.size);
+    const s2 = new Set(['a', 'b', 'c']);
+    console.log(s2.size);
+
+    // 利用Set数组去重
+    const s3 = new Set(['a', 'a', 'b', 'b']);
+    console.log(s3);
+    let arr3 = [...s3];
+    console.log(arr3);
+
+    // add() 向Set中添加 值 ，可以链式调用该方法
+    const s4 = new Set();
+    s4.add(1).add(2).add(3,'a');  //第二个值会被忽略
+    console.log(s4);
+
+    //delete() 从Set中删除值 ，返回是否删除成功
+    const s5 = new Set([2, 4, 6, 8]);
+    console.log(s5.delete(4));
+    console.log(s5);
+
+    // has() 判断Set中是否有该成员 ，返回布尔值
+    console.log(s5.has(8));
+
+    // clear() 清空Set中的值
+    s5.clear();
+    console.log(s5);
+
+    // forEach() 遍历Set数据结构
+    const s6 = new Set([1, 2, 3, 4, 5, 6]);
+    s6.forEach( value => {
+        console.log(value);
+    })
+</script>
+
+</body>
+</html>

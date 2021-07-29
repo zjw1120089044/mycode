@@ -1,0 +1,104 @@
+header {
+    height: 82px;
+    line-height: 82px;
+}
+
+
+.main {
+    height: 484px;
+    background-color: #e63810;
+}
+.container {
+    position: relative;
+    height: 484px;
+    background: url(../upload/loginbg.jpg) no-repeat;
+}
+.login_box {
+    position: absolute;
+    right: 150px;
+    top: 50%;
+    transform: translateY(-50%);
+    width: 380px;
+    height: 362px;
+    background-color: #fff;
+}
+.login_box_hd {
+    height: 62px;
+    line-height: 62px;
+    text-align: center;
+    color: #999;
+}
+.login_box_hd span {
+    display: inline-block;
+    width: 187px;
+    font-size: 18px;
+    color: #666;
+}
+.login_box_hd span.current {
+    color: royalblue;
+}
+.login_box_bd {
+    position: relative;
+    margin-left: 37px;
+}
+.tips {
+    width: 303px;
+	height: 26px;
+    padding-left: 10px;
+    margin-bottom: 10px;
+    line-height: 26px;
+	background-color: #fffdee;
+	border: solid 1px #f5eecf;
+    font-size: 12px;
+    color: #666;
+}
+.login_box_bd i {
+    display: inline-block;
+    width: 36px;
+    height: 36px;
+    text-align: center;
+    line-height: 32px;
+    background-color: #cfcdcd;
+    font-size: 20px;
+    color: white;
+}
+.login_box_bd input:nth-of-type(-n+2){
+    width: 264px;
+    height: 36px;
+    border: 1px solid #cfcdcd;
+    padding-left: 11px;
+    margin-bottom: 17px;
+}
+.login_box_bd label {
+    font-size: 12px;
+    color: #666;
+    margin-left: 6px ;
+}
+.login_box_bd a {
+    position: absolute;
+    right: 47px;
+    font-size: 12px;
+    color: #333;
+}
+.login_box_bd button {
+    width: 303px;
+    height: 41px;
+    margin-top: 20px;
+    margin-bottom: 15px;
+    background-color: royalblue;
+    font-size: 16px;
+    color: white;
+}
+.login_box_footer {
+    height: 64px;
+    margin-left: 37px;
+    line-height: 64px;
+}
+.login_box_footer a i {
+    font-size: 34px;
+    margin-right: 20px;
+}
+.login_box_footer a:last-child {
+    font-size: 14px;
+    color: #1474af;
+}

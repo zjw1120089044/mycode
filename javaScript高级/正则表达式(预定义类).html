@@ -1,0 +1,42 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>预定义类</title>
+</head>
+<body>
+    
+
+    <script>
+        // \d 数字 相当于[0-9]
+        var reg = /^\d$/
+        console.log(reg.test(3));
+        console.log(reg.test(11));  //false
+        // \D 非数字 相当于[^0-9]
+        var rege = /^\D$/
+        console.log(rege.test(3)); 
+        console.log(rege.test('a'));
+
+
+        console.log('----------------reg1-----------------');
+
+        // \w 字母数字或下划线  相当于[A-Za-z0-9_]
+        var reg1 = /^\w$/
+        console.log(reg1.test('a'));
+        console.log(reg1.test(3));
+        console.log(reg1.test('_'));
+        // \W 非数字字母下划线  相当于[^A-Za-z0-9]
+        var rege1 = /^\W$/
+        console.log(rege1.test('!'));
+
+        console.log('---------------reg2------------------');
+        // \s 匹配空内容 包括空格，换行，制表符  相当于[\t\r\n\v\f]
+        var reg2 = /^\s$/
+        console.log(reg2.test(''));
+        console.log(reg2.test(' '));
+        // \S 匹配非空内容
+    </script>
+</body>
+</html>

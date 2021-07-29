@@ -1,0 +1,130 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>ES5新增</title>
+</head>
+<body>
+    <input type="text">
+    <button>提交</button>
+    <div></div>
+
+
+
+<script>
+
+    // forEach()遍历数组
+    console.log('------------arr1-------------');
+    var arr1 = ['a', 'b', 'c'];
+    // var arr = [];
+    arr1.forEach(function(value, index, array){
+        console.log(index , value);
+        console.log(array);
+        // if(value % 2 == 0){
+        //     arr.push(value);
+        // }
+    })
+    // console.log(arr);
+
+    // filter()筛选数组  返回值为数组类型
+    console.log('------------arr2-------------');
+    var arr2 = [20, 34, 7, 23, 81, 10, 99];
+    var newArr = arr2.filter(function(val, i){
+        // return val > 30;
+        
+        console.log(val % 2 == 0);
+        return val % 2 == 0;  //满足条件的元素会被自动push到数组内
+    })
+    console.log(newArr);
+
+    // some() 查找是否有满足条件的元素，返回true或false，找到第一个满足条件的元素即终止循环
+    console.log('------------arr3-------------');
+    var arr3 = [2, 3, 101];
+    var flag = arr3.some(function(value){
+        return value > 100;
+    })
+    console.log(flag);
+    var flag2 = arr1.some(function(val){
+        return val == 'b';
+    })
+    console.log(flag2);
+
+    console.log('------------arr4-------------');
+    // every()  判断每个元素是否都满足条件
+    var arr4 = [2, 4, 6, 8];
+    var flag4 = arr4.every(function(val){
+        return val % 2 == 0;
+    })
+    console.log(flag4);
+
+    console.log('------------arr5-------------');
+    // map()  返回对数组进行操作后的数组
+    var arr5 = [1, 2, 3];
+    var newArr5 = arr5.map(function(val){
+        return val * 2;
+    });
+    console.log(newArr5);
+
+
+    console.log('====================字符串===================');
+    
+    // trim() 去除字符串 两侧 空格，返回新字符串
+    var str = '   www   ';
+    console.log(str);
+    var str1 = str.trim();
+    console.log(str1);
+
+    var input = document.querySelector('input');
+    var btn = document.querySelector('button');
+    var div = document.querySelector('div');
+    btn.addEventListener('click', function(){
+        var str2 = input.value.trim();
+        if(str2 == ''){
+            alert('内容不能为空！');
+        }else{
+            div.innerHTML = str2;
+            console.log(str2);
+            console.log(str2.length);
+        }
+    })
+
+
+    console.log('====================对象===================');
+
+    // Object.keys()  获取对象所有属性
+    var obj = {
+        id: 1,
+        uname: '伟',
+        age: 20,
+        sex: '男'
+    }
+    var arr6 = Object.keys(obj);
+    console.log(arr6);
+
+    // Object.defineProperty(对象，属性名，{属性值}) 新增或修改属性
+    Object.defineProperty(obj, 'age', {
+        value: 21
+    })
+    Object.defineProperty(obj, 'score', {
+        value: 100
+    })
+    Object.defineProperty(obj, 'id', {
+        // 不允许修改该属性，默认值为false
+        writable: false,
+        configurable: false   //不允许删除(也不允许再次修改该属性的参数)  默认为false
+    })
+    Object.defineProperty(obj, 'address', {
+        value: '杭州',
+        enumerable: false,   //不允许遍历，默认为false(通过defineProperty新增的属性也是)
+        
+    })
+    obj.id = 2222;
+    delete obj.id;
+    console.log(obj);
+    console.log(Object.keys(obj));
+</script>
+
+</body>
+</html>

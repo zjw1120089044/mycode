@@ -1,0 +1,62 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>微博发布</title>
+    <script src="jQuery.js"></script>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+        }
+        .box {
+            width: 600px;
+            /* height: 300px; */
+            border: 1px solid #ccc;
+            padding: 10px;
+            margin: 50px auto;
+            text-align: center;
+        }
+        ul {
+            list-style: none ;
+        }
+        li {
+            display: none;
+            margin-bottom: 5px;
+            background-color: royalblue;
+            border-radius: 5px;
+        }
+        ul li a {
+            float: right;
+        }
+    </style>
+</head>
+<body>
+    <div class="box">
+        <h3>微博发布</h3>
+        <textarea name="" id="" cols="30" rows="10" class="txt"></textarea><br>
+        <button class="btn">发布</button>
+        <ul></ul>
+    </div>
+
+
+<script>
+    $(function(){
+        $(".btn").on("click", function(){
+            var li = $("<li></li>");
+            li.html($(".txt").val() + "<a href='javascript:;'>删除</a>");
+            $("ul").prepend(li);
+            li.slideDown();
+            $(".txt").val("");
+        })
+        $("ul").on("click", "a", function(){
+            $(this).parent().slideUp(function(){  //这里的this是a
+                $(this).remove(); //这里的this是指li
+            });
+        })
+    })
+</script>
+</body>
+</html>

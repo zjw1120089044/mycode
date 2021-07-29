@@ -1,0 +1,108 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>函数</title>
+    <script>
+        // 两个数之间的累加和
+        function getSums(start,end){
+            var sum = 0;
+            for (i = start; i <= end; i++){
+                sum += i;
+            }
+            console.log(sum);
+        }
+        getSums(1,100);
+
+        getSums(1,200,300); // 多余的实参不会传入形参，也不会报错
+        getSums(1) //未接收实参的形参会默认undefined
+
+        function f(num1,num2){
+            //return num1,num2; 返回值是num2
+            return [num1+num2 , num1-num2];
+
+            alert('return后的语句不会被执行');
+        }
+        var re = f(3,2);
+        console.log(re);
+
+        //arguments伪数组中存放了所有的实参，没有pop(),push()等方法
+        function f2(){
+            console.log(arguments);
+            console.log(arguments.length);
+        }
+        f2(1,2,3); 
+        //求任意个数的最大值
+        function getMax(){
+            var max = arguments[0];
+            for(var i = 1;i<arguments.length;i++){
+                if(arguments[i] > max){
+                    max = arguments[i];
+                }
+            }return max;
+        }
+        var re = getMax(1,3,5,7,9);
+        console.log(re);
+
+        //匿名函数
+        var fun = function(){
+            console.log('我是匿名函数');
+        }
+        fun();
+        //fun是变量名，不是函数名，fun中存的是匿名函数，可以进行参数的传递
+
+        // 在函数体外声明的变量为全局变量，作用于整个js文件
+        // 没有声明直接赋值的变量也属于全局变量
+        function f3(){
+            var a = 5 //局部变量
+            b = 10 //全局变量
+        }
+        f3();//若是在函数体中声明的全局变量，需要先调用函数才能生效
+        console.log(b);
+        //全局变量只有在关闭浏览器时才会销毁，因此比较占内存
+        //局部变量当代码块运行结束后就会被销毁，更节省内存
+
+        //js中没有块级作用域{}，es6中才有
+        if(1){
+            var num3 = 33;
+        }
+        console.log(num3); //由于没有块级作用域，if{}外部也可调用num3，num3属于全局变量
+
+
+        console.log(num4);//不会报错，结果为undefined
+        var num4 = 4;
+        //js引擎运行js时会先进行：预解析，再进行代码执行
+        //预解析会把var和function提到其“作用域”最前面，只提 声明 不提 赋值
+
+
+        /*fun4();     //会报错
+        var fun4 = function(){
+            console.log(44);
+        }*/
+
+        /*其执行顺序会被预解析为：
+          var fun4;
+          fun4();
+          fun4 = function(){
+              console.log(44);
+          } */
+
+        //面试案例
+        f5();
+        console.log(c);//5
+        console.log(b);//5
+        console.log(a);//报错
+        function f5(){
+            var a = b = c = 5; //相当于var a=5; b=5 ;c=5 其中b，c为全局变量
+            console.log(a);//5
+            console.log(b);//5
+            console.log(c);//5
+        }
+    </script>
+</head>
+<body>
+    
+</body>
+</html>

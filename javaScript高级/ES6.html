@@ -1,0 +1,185 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>ES6</title>
+</head>
+<body>
+    <div>111</div>
+    <div>222</div>
+    <div>333</div>
+    <div>444</div>
+
+<script>
+    if(1){
+        // let 声明的关键字具有块级作用域，即{}包住的范围   var不具备该特点
+        let a = 3;
+        var b = 5;
+    }
+    // console.log(a);
+    console.log(b);
+
+    // 防止循环变量 i 变为全局变量
+    for(var i = 0; i<10; i++){
+        
+    }
+    console.log(i);
+
+    // let没有变量提升
+    // console.log(c);
+    // let c = 4;
+
+    // 暂时性死区  在块级作用域中用let声明的同名变量不会向外查询
+    let num = 6;
+    if(1){
+        // console.log(num);
+        let num = 0;
+        console.log(num);
+    }
+
+
+    var arr1 = [];
+    for(var i = 0; i<2; i++){
+        arr1[i] = function(){
+            console.log(i);
+        }
+    }
+    console.log('这里var的i是全局变量，在调用时向上查找到的i都是2');
+    arr1[0]();  // 2
+    arr1[1]();  // 2
+
+    let arr2 = [];
+    for(let i = 0; i<2; i++){
+        arr2[i] = function(){
+            console.log(i);
+        }
+    }
+    console.log('每次循环都会产生一个块级作用域，每个块级作用域中存的 i 都是不同的');
+    arr2[0]();  // 0
+    arr2[1]();  // 1
+
+
+    console.log('-------------const------------');
+
+    // const 定义常量   同样具有块级作用域，声明时必须赋值，并且不能被修改
+    if(1){
+        const d = 7;
+        if(1){
+            // console.log(d);
+            const d = 8;
+            console.log(d);
+        }
+        console.log(d);
+    }
+
+    // 对于复杂数据类型的常量 ，其内部的值可修改
+    const arr3 = [111,222,333];
+    arr3[0] = 100;
+    // arr3 = [100,200,300];
+    console.log(arr3);
+
+    // 数组解构  若没有对应的值，则变量值为undefined
+    let [x,y,z] = [1,2,3];
+    console.log(x);
+    console.log(y);
+    console.log(z);
+
+    // 对象解构
+    let person = {name: '张三', age: 18, sex: '男'};
+    let {name, age, p_sex} = person;   //必须是与属性同名的变量
+    console.log(name);
+    console.log(age);
+    console.log(p_sex);
+    // 也可通过属性匹配变量名
+    let {name:myName, age:myAge, sex: mySex} = person;
+    console.log(myName);
+    console.log(myAge);
+    console.log(mySex);
+
+
+    // 箭头函数
+    const fn = () => {
+        console.log('=>箭头函数');
+    }
+    fn();
+
+    // 若只有一句可省略大括号 , 并且它的执行结果就是该函数的返回值
+    const sum = (num1, num2) => num1 + num2;
+    console.log(sum(1,2));
+    // 若形参也只有一个 ，那么形参外的小括号也可省略
+    const change = v => v * 2;
+    console.log(change(2));
+
+    // 箭头函数不绑定this ，箭头函数中的this指向箭头函数定义处前后的this
+    function fn1 () {
+        console.log(this);
+        return () => {
+            console.log(this);
+        }
+    }
+    const obj1 = {name: '伟'};
+    // console.log(fn1.call(obj1));
+    const res_fn1 = fn1.call(obj1);
+    res_fn1();
+
+
+    var age2 = 100;
+    let obj2 = {
+        age2: 20,
+        say: () => {
+            console.log(this.age2);
+            //作为方法的箭头函数this指向全局window对象，而普通函数则指向调用它的对象
+        },
+        sayhi: function(){
+            console.log(this);
+        }
+    }
+
+    obj2.say();
+    obj2.sayhi();
+
+
+
+    console.log('===============剩余参数=================');
+
+    // 箭头函数中无法使用arguments   通过 ...args 来接收所有的参数
+    const getSum = (...args) => {
+        let count = 0;
+        args.forEach( (item) => {count += item} );
+        return count;
+    }
+    console.log(getSum(10,20));
+    console.log(getSum(10,20,30));
+
+    //剩余参数 + 数组解构
+    let arr4 = ['张三', '李四', '王五'];
+    let [s1, ...s2] = arr4;
+    console.log(s1);
+    console.log(s2);
+
+
+    // 扩展运算符
+    let arr5 = [1, 2, 3];
+    console.log(...arr5);
+    // console.log(1,2,3);
+
+    // 利用扩展运算符，将数组合并
+    let arr6 = [4, 5, 6];
+    let newArr = [...arr5, ...arr6];
+    console.log(newArr);
+    // 使用push()合并
+    newArr.push(...arr4);
+    console.log(newArr);
+
+    // 利用扩展运算符，将伪数组转换为真正的数组
+    var divs = document.querySelectorAll('div');
+    console.log(divs);
+    var divArr = [...divs];
+    divArr.push('aaa');
+    console.log(divArr);
+</script>
+
+</body>
+</html>

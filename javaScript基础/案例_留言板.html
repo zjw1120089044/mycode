@@ -1,0 +1,66 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>留言板</title>
+    <style>
+        textarea {
+            font-size: 16px;
+        }
+        ul {
+            background-color: #eee;
+        }
+        li {
+            list-style: none;
+            width: 200px;
+            height: 100px;
+            border-radius: 50px;
+            padding: 0 50px;
+            margin: 10px 0;
+            background-color: royalblue;
+            color: #fff;
+        }
+        li a {
+            float: right;
+            color: red;
+        }
+    </style>
+</head>
+<body>
+    <!-- <textarea name="" id="" cols="30" rows="10" placeholder="请输入..."></textarea>
+    <button>发布</button>
+    <ul></ul> -->
+
+    <fieldset>
+        <legend>留言板</legend>
+        <textarea name="" id="" cols="30" rows="10" placeholder="请输入..."></textarea>
+        <button>发布</button>
+        <ul></ul>
+    </fieldset>
+
+    <script>
+        var btn = document.querySelector('button');
+        var text = document.querySelector('textarea');
+        var ul = document.querySelector('ul');
+        btn.onclick = function() {
+            if(text.value == ''){
+                alert('发布的内容不能为空');
+            }else{
+                var li = document.createElement('li');
+                li.innerHTML = text.value + '<a href="javascript:;">删除</a>';
+                ul.insertBefore(li, ul.children[0]);
+                text.value = '';
+
+                var a = document.querySelectorAll('a');
+                for(var i = 0; i<a.length; i++){
+                    a[i].onclick = function(){
+                        ul.removeChild(this.parentNode);
+                    }
+                }
+            }
+        }
+    </script>
+</body>
+</html>

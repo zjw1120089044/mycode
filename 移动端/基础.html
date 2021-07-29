@@ -1,0 +1,66 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=no, maximum-scale=1.0, minimum-scale=1.0">
+    <!-- meta视口标签              宽度=设备宽度         初始缩放倍数        不允许用户缩放     最大缩放倍数        最小缩放倍数 -->
+    <title>移动端基础</title>
+
+    <link rel="stylesheet" href="normalize.css">
+    <!-- 移动端css3初始化 -->
+
+    <style>
+        /* PC端，1px等于1个物理像素
+           不同移动端物理像素比不同 */
+        
+        /* 通常使用2倍图使移动端的图片更清晰 */
+        .d1 {
+            width: 50px;
+            height: 50px;
+            border: 1px solid #000;
+            background: url(images/apple100.jpg) no-repeat;
+            /* 准备100px的图片使其宽高缩放 */
+            background-size: 50px 50px;
+        }
+
+        /* 特殊样式 */
+        div {
+            box-sizing: border-box;
+            -webkit-box-sizing: border-box;
+        }
+        a {
+            -webkit-tap-highlight-color: transparent;
+            /* 将点击时的高亮设为透明 */
+        }
+        input,
+        button {
+            -webkit-appearance: none;
+            /* 在移动端加这个属性才能给按钮和输入框自定义样式 */
+        }
+        img,
+        a {
+            -webkit-touch-callout: none;
+            /* 禁用长按弹出菜单 */
+        }
+
+
+        .d2 {
+            width: 1000px;
+            height: 100px;
+            background: -moz-linear-gradient(left, red,yellow,green, blue,purple);
+        /* 背景色渐变，兼容性差PC端需要加私有前缀  起始方向，颜色1，颜色2...  
+                       方向前加to也可*/
+        }
+    </style>
+</head>
+<body>
+    <div class="d1"></div>
+    <input type="text">
+    <button>提交</button>
+    <a href="#">aaa</a>
+
+    <div class="d2"></div>
+</body>
+</html>

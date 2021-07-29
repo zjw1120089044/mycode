@@ -1,0 +1,98 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>基本数据类型</title>
+
+    <!-- 简单数据类型(值类型)：String,Number,Boolean,undefined,null (typeof null 返回值为object)-->
+    <!-- 复杂数据类型(引用型)：Object,Array,Date -->
+    <!-- js中复杂数据类型直接比较的是地址 -->
+
+    <!-- 内嵌式 -->
+    <script>
+        // html中经常使用双引号，js中常使用单引号
+        alert('控制网页弹出警示“你好！”');
+
+        var str = prompt('这是一个输入框');//通过prompt取到的值都会变成字符型
+
+        console.log('在控制台打印输出信息');
+
+        var name = '姓名',
+            age = 18;
+        console.log(name+','+age+','+str);
+        // 只声明未赋值，结果为undefined未定义
+        // 变量名区分大小写，Age与age是两个变量
+        // name有含义，尽量不要使用作为变量名
+        var x = 10;
+        x = 'abc';
+        // js是动态语言，变量的数据类型可以改变
+        y = 555;
+        console.log(y);
+        // 未声明只赋值也可使用(全局)
+        
+        console.log('数值型最大值'+Number.MAX_VALUE);
+        console.log('数值型最小值'+Number.MIN_VALUE);
+        console.log('无穷大'+Infinity);
+        console.log('无穷小'+-Infinity);
+        console.log('非数字'+NaN);
+
+        console.log('判断是否为非数字'+isNaN(age));//非数字返回true，数字返回false
+
+        //字符串引号嵌套，转义字符要写在引号中
+        var str1 = 'aaa"bbb" \n aaa';
+        console.log(str1.length);//length可获取字符串长度
+
+        console.log(typeof x);//typeof 可以检测数据类型
+
+        // 字符串类型转换
+        var num = 10;
+        console.log(num.toString());
+        console.log(String(num));
+        console.log(num+'');//隐式转换
+
+        //整数类型转换
+        var str2 = prompt('请输入数字');
+        console.log(parseInt(str2));
+        console.log(parseInt('120px'));//parseInt会去掉px单位(截掉数字后面的非数字字符，前面的不行)
+        //浮点型转换
+        console.log(parseFloat('3.14'));
+        //Number转换
+        console.log(Number(str2));
+        //利用（- * /）隐式转换
+        console.log(str2-0);
+
+        //浮点数直接参与运算会出现误差
+        console.log(0.1 + 0.2); //结果为0.30000000000000004
+
+        //前置自增与后置自增
+        var e = 10;
+        var f = e++ + ++e;//10+12
+        console.log(f);//结果为22
+
+        console.log(18 == '18');//true ==会默认转换数据类型
+        console.log(18 === '18');//false 全等于要求值和数据类型完全一致
+
+        console.log(12 && 23);// 23，而不是true
+        console.log(0 && 25);// 0，存在短路
+        console.log(12 || 0);// 12，存在短路原则
+        console.log(0 || 12);// 12
+        //&&的运算优先级高于||
+
+
+        // js中复杂数据类型直接比较的是地址
+        var arr1 = [1,2,3];
+        var arr2 = [1,2,3];
+        console.log(arr1 == arr2);  //false
+
+    </script>
+
+    <!-- 外部式  规范上外部引入的js标签中不允许写代码-->
+    <script src="test.js"></script>
+</head>
+<body>
+    <!-- 行内式 -->
+    <input type="button" value="你好" onclick="alert('Hello World!')">
+</body>
+</html>

@@ -1,0 +1,221 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>属性操作</title>
+    <script src="jQuery.js"></script>
+    <style>
+        .d4 {
+            width: 100px;
+            height: 100px;
+            background-color: royalblue;
+            padding: 10px;
+            border: 2px solid red;
+            margin: 5px;
+        }
+
+        .father {
+            position: relative;
+            width: 200px;
+            height: 200px;
+            background-color: limegreen;
+        }
+        .son {
+            position: absolute;
+            top: 50px;
+            left: 50px;
+            width: 100px;
+            height: 100px;
+            background-color: royalblue;
+        }
+
+        .box {
+            position: relative;
+            width: 1200px;
+            height: 1000px;
+            background-color: royalblue;
+            margin: 10px auto;
+        }
+        .box_nav {
+            position: fixed;
+            top: 250px;
+            left: 50%;
+            transform: translateX(600px);
+            width: 100px;
+            height: 50px;
+            line-height: 50px;
+            background-color: limegreen;
+            cursor: pointer;
+        }
+    </style>
+</head>
+<body>
+    <a href="https://www.baidu.com" title="这是百度">百度</a>
+
+    <input type="checkbox" name="" id="" checked>
+
+    <div class="d1" data-index="1">attr</div>
+
+    <span>data缓存</span>
+
+    <div class="d2">
+        <span>div中的内容</span>
+    </div>
+
+    <input type="text" class="ipt2" value="请输入">
+
+    <div class="d3">
+        <span>111</span>
+        <span>222</span>
+        <span>333</span>
+    </div>
+
+    <ul class="ul1">
+        <li>111</li>
+        <li>111</li>
+        <li>111</li>
+    </ul>
+
+    <ul class="ul2">
+        <li>要删除的元素</li>
+        <li>要删除的元素</li>
+        <li>要删除的元素</li>
+    </ul>
+
+    <div class="d4">尺寸调整</div>
+
+    <div class="father">
+        <div class="son">元素位置</div>
+    </div>
+
+    <div class="box">
+        scroll
+        <div class="box_nav">返回顶部</div>
+    </div>
+    
+
+    <script>
+        $(function(){
+            // prop("属性名") 获取元素的属性值(固有属性)
+            console.log($("a").prop("href"));
+
+            $("a").prop("title", "修改了");
+
+            $("input").change(function(){
+                console.log($(this).prop("checked")); //返回false或true
+            })
+
+            // attr("属性名") 获取元素的自定义属性(也可获取固有属性)
+            console.log($(".d1").attr("data-index"));
+            $(".d1").attr("data-index", "111");
+
+            // data()数据缓存 在指定元素上存取数据，不会修改DOM元素结构，页面刷新缓存移除
+            $("span").data("username", "www");
+            console.log($("span").data("username"));
+            // 使用该方法获取H5自定义属性时，不用写data-，返回数字型
+            console.log($(".d1").data("index"));
+            
+            // html() 元素内容值,相当于innerHTML   text() 元素文本值,相当于innerText
+            console.log($(".d2").text());
+            console.log($(".d2").html());
+            $(".d2").html("修改会覆盖原有内容中的标签");
+            
+            // val() 表单值
+            console.log($(".ipt2").val());
+            $(".ipt2").val("修改表单值");
+
+            // each(index, DOM元素对象)遍历元素
+            var arr = ["red", "limegreen", "white"];
+            $(".d3 span").each(function(i, domElement){
+                console.log(i);
+                console.log(domElement);
+                // 将dom元素对象转化为jquery元素对象
+                $(domElement).css("backgroundColor", "royalblue");
+
+                $(domElement).css("color", arr[i]);
+            })
+            // $.each()方法 用于遍历元素，数组，对象等数据
+            $.each($(".d3 span"), function(i, e){
+                console.log(i);
+                console.log(e);
+            })
+            $.each(arr, function(i, e){
+                console.log(i);
+                console.log(e);
+            })
+            $.each({
+                name: "www",
+                age: 18
+            }, function(i, e){
+                console.log(i);
+                console.log(e);
+            })
+
+
+            // append("内容")内部添加元素  内容放到元素内最后面，类似appendChild
+            var li = $("<li>新创建的li</li>");
+            $(".ul1").append(li);
+            // prepend()内部添加元素  内容放到最前面
+            $(".ul1").prepend(li);
+
+            // 外部添加
+            var div = $("<div>外部添加的div</div>");
+            $(".ul1").before(div);
+            $(".ul1").after(div);
+
+            //删除元素
+            // $(".ul2").remove(); 删除匹配元素
+            // $(".ul2").empty();  //删除匹配元素的子节点
+            $(".ul2").html("");  //删除匹配元素的子节点
+
+
+            // 元素大小调整
+            console.log($(".d4").width());
+            $(".d4").width(200);
+            // innerWidth()  padding + width
+            console.log($(".d4").innerWidth());
+            // outerWidth()  padding + border + width
+            console.log($(".d4").outerWidth());
+            // outerWidth(true)  padding + border + margin + width
+            console.log($(".d4").outerWidth(true));
+
+            // 元素位置
+            // offset()  距离文档的位置
+            console.log($(".son").offset());
+            console.log($(".son").offset().top);//距离页面顶部
+            $(".son").offset({
+                top: 100,  //该值是距离页面的位置，不受定位影响
+                left: 500
+            })
+            // position()  获取与带定位的父级的距离，只能获取不能改写，若没有带定位的父级则以页面为准
+            console.log($(".son").position());
+
+
+            // scrollTop() 页面被卷去长度   scrollTop(200)通过设置参数来使页面跳转
+            $(document).scrollTop(630);
+
+            var boxTop = $(".box").offset().top;
+            $(window).scroll(function(){
+                console.log($(document).scrollTop());
+                if($(document).scrollTop() >= boxTop){
+                    $(".box_nav").fadeIn();
+                }else{
+                    $(".box_nav").fadeOut();
+                }
+            })
+
+            $(".box_nav").click(function(){
+                // $(document).scrollTop(0);
+
+                // 只有元素才能做动画，而不能使用document
+                $("body, html").stop().animate({
+                    scrollTop: 0
+                }, 1000)
+            })
+            
+        })
+    </script>
+</body>
+</html>

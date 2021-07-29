@@ -1,0 +1,93 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>字符串</title>
+    <script>
+        //基本数据类型没有属性和方法，对象才有属性和方法
+        var str = 'blue';
+        console.log(str.length);
+        /* 基本包装类型，把简单数据类型包装成复杂数据类型，这样就有了属性和方法
+           js提供了三个特殊引用类String,Number,Boolean */
+
+        /* 具体过程：
+            var temp = new String('blue');
+            str = temp;
+            temp = null;   */
+
+        //字符串不可变性
+        console.log(str);//开辟空间存放blue，str指向其地址
+        var str = 'red';//开辟空间存放red，str变更地址指向，此时地址空间中的blue仍存在
+        console.log(str);//因此大量的拼接字符串，会占用过多内存空间
+
+        //字符串查找索引
+        var str1 = '字符串查找索引';
+        console.log(str1.indexOf('串'));
+        console.log(str1.indexOf('串',1));//从元素下标1，开始查
+
+        //查找字符串中e的个数和位置
+        var str2 = 'abcdefgehielmne';
+        console.log(str2);
+        var index = str2.indexOf('e');
+        var count = 0;
+        while(index != -1){
+            console.log(index);
+            count++;
+            index = str2.indexOf('e' , index+1);
+        }
+        console.log('e的个数为：' + count);
+
+        //根据索引获得字符串中的字符
+        console.log(str2.charAt(4));   
+        console.log(str2.charCodeAt(0));//返回ASCII码值
+        console.log(str2[4]);//H5新增
+
+        //统计出现次数最多的字符
+        var str3 = 'adwfcawabgwcxwqyzfwaxawd'
+        var obj = {};
+        for(var i = 0; i < str3.length; i++){
+            var chars = str3[i];
+            if(obj[chars]){
+                obj[chars]++;
+            }
+            else{
+                obj[chars] = 1;
+            }
+        }
+        console.log(obj);
+        var max = 0;
+        var k_max = '';
+        for(var k in obj){
+            if(obj[k] > max){
+                max = obj[k];
+                k_max = k;
+            }
+        }
+        console.log('出现次数最多的字母为：'+k_max+',次数为：'+max);
+
+        //substr(begin,长度) 截取字符串
+        console.log(str3.substr(2));//wfc
+
+        //replace('被替换的字符','替换为的字符') 只会替换匹配的第一个字符
+        var str4 = 'aabbbcddc';
+        console.log(str4.replace('c','x'));//返回值为aabbbxddc ,不会改变原字符串
+
+        //split('分隔符') 字符串转换为数组  与join()相反  , 不会改变原字符串
+        var str5 = 'red,blue,green';
+        console.log(str5.split(','));  //去除分隔符
+
+        // 字符串翻转
+        var str6 = 'abcde';
+        console.log(str6.split('').reverse().join('')); 
+
+        // toUpperCase() 小写转大写   toLowerCase() 大写转小写
+        var str7 = 'abc'
+        console.log(str7.charAt(0).toUpperCase() + str7.substr(1,2));
+    </script>
+</head>
+<body>
+    
+</body>
+</html>

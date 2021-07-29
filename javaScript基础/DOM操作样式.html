@@ -1,0 +1,363 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>DOM操作样式</title>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+        }
+        li {
+            list-style: none;
+        }
+
+        .d1 {
+            width: 100px;
+            height: 100px;
+            background-color: royalblue;
+        }
+
+
+        .box {
+            position: fixed;
+            top: 100px;
+            right: 0;
+            border: 1px solid #ccc;
+            margin-right: 5px;
+            background-color: #fff;
+            text-align: center;
+            color: orangered;
+        }
+        .box img {
+            display: block;
+            width: 70px;
+            margin: 0 5px 5px;
+        }
+        .close_btn {
+            position: absolute;
+            top: -1px;
+            left: -16px;
+            width: 14px;
+            height: 14px;
+            border: 1px solid #ccc;
+            background-color: #fff;
+            line-height: 14px;
+            font-family: Arial,Arial, Helvetica, sans-serif;
+            font-style: normal;
+            cursor: pointer;
+        }
+
+
+        .d3 {
+            overflow: hidden;
+            width: 250px;
+            border: 1px solid #ccc;
+            margin: 10px auto;
+            background-color: #fff;
+        }
+        .d3 li {
+            float: left;
+            width: 24px;
+            height: 24px;
+            margin: 19px;
+            background: url(images/sprite.png) no-repeat;
+        }
+
+        input[type = text] {
+            width: 200px;
+            height: 25px;
+            margin: 10px;
+            color: #999;
+        }
+
+        .d4 {
+            width: 100px;
+            height: 100px;
+            background-color: royalblue;
+        }
+        .d4_change {
+            width: 200px;
+            height: 200px;
+            background-color: limegreen;
+            color: #fff;
+            font-size: 20px;
+        }
+
+        body {
+            background: url(images/1.jpg) no-repeat center top;
+        }
+        .bg {
+            overflow: hidden;
+            width: 420px;
+            padding: 5px;
+            margin: 10px auto;
+            background-color: #fff;
+        }
+        .bg li {
+            float: left;
+            margin-right: 5px;
+            cursor: pointer;
+        }
+        .bg img {
+            width: 100px;
+        }
+
+        table {
+            background-color: #fff;
+            margin: 10px auto;
+            border-collapse: collapse;
+            /* 边框合并 */
+            text-align: center;
+        }
+        table th,
+        td {
+            padding: 15px 30px;
+        }
+        thead {
+            background-color: royalblue;
+        }
+        table tbody td {
+            border-bottom: 1px solid #ccc;
+            color: blue;
+        }
+    </style>
+</head>
+<body>
+    <div class="d1" index="自定义的属性"></div>
+
+    <div class="box">
+        二维码
+        <img src="images/tao.png" alt="">
+        <i class="close_btn">x</i>
+    </div>
+
+    <div class="d3">
+        <ul>
+            <li class="li1"></li>
+            <li class="li1"></li>
+            <li class="li1"></li>
+            <li class="li1"></li>
+            <li class="li1"></li>
+            <li class="li1"></li>
+            <li class="li1"></li>
+            <li class="li1"></li>
+            <li class="li1"></li>
+            <li class="li1"></li>
+            <li class="li1"></li>
+            <li class="li1"></li>
+        </ul>
+    </div>
+
+    <input type="text" value="默认内容">
+    
+    <div class="d4">修改className</div>
+
+    <button>按钮1</button>
+    <button>按钮2</button>
+    <button>按钮3</button>
+    <button>按钮4</button>
+    <button>按钮5</button>
+
+    <ul class="bg">
+        <li class="li2"><img src="images/1.jpg" alt=""></li>
+        <li class="li2"><img src="images/2.jpg" alt=""></li>
+        <li class="li2"><img src="images/3.jpg" alt=""></li>
+        <li class="li2"><img src="images/4.jpg" alt=""></li>
+    </ul>
+
+    <table>
+        <thead>
+            <tr>
+                <th>代码</th>
+                <th>名称</th>
+                <th>最新净值</th>
+                <th>累计净值</th>
+                <th>前单位净值</th>
+                <th>净值增长率</th>
+                <th><input type="checkbox" id="checkAll">全选</th>
+            </tr>
+        </thead>
+        <tbody>
+            <tr>
+                <td>003526</td>
+                <td>农银金汇3个月定期开放债券</td>
+                <td>1.075</td>
+                <td>1.079</td>
+                <td>1.074</td>
+                <td>+0.047%</td>
+                <td><input type="checkbox"></td>
+            </tr>
+            <tr>
+                <td>003526</td>
+                <td>农银金汇3个月定期开放债券</td>
+                <td>1.075</td>
+                <td>1.079</td>
+                <td>1.074</td>
+                <td>+0.047%</td>
+                <td><input type="checkbox"></td>
+            </tr>
+            <tr>
+                <td>003526</td>
+                <td>农银金汇3个月定期开放债券</td>
+                <td>1.075</td>
+                <td>1.079</td>
+                <td>1.074</td>
+                <td>+0.047%</td>
+                <td><input type="checkbox"></td>
+            </tr>
+            <tr>
+                <td>003526</td>
+                <td>农银金汇3个月定期开放债券</td>
+                <td>1.075</td>
+                <td>1.079</td>
+                <td>1.074</td>
+                <td>+0.047%</td>
+                <td><input type="checkbox"></td>
+            </tr>
+        </tbody>
+    </table>
+
+    <div class="d5"></div>
+
+    <script>
+        var div1 = document.querySelector('.d1');
+        div1.onclick = function() {
+            this.style.backgroundColor = 'limegreen';
+            this.style.width = '200px';
+            this.style.height = '200px';
+            // 优先级等价于修改行内样式
+        }
+
+
+        //点击x隐藏
+        var btn = document.querySelector('.close_btn');
+        var div2 = document.querySelector('.box');
+        btn.onclick = function() {
+            div2.style.display = 'none';
+        }
+        
+
+        //循环精灵图
+        var lis = document.querySelectorAll('.li1');
+        for(var i = 0; i<lis.length; i++) {
+            var index = i * 44;
+            lis[i].style.backgroundPosition = '0 -'+index+'px';
+        }
+
+
+        //onfocus获取焦点   onblur失去焦点
+        var text = document.querySelector('input');
+        text.onfocus = function() {
+            console.log('得到了焦点');
+            if(this.value == '默认内容') {
+                this.value = '';
+            }
+            this.style.color = '#000';
+        }
+        text.onblur = function() {
+            console.log('失去了焦点');
+            if(this.value == ''){
+                this.value = '默认内容';
+            }
+            this.style.color = '#999'
+        }
+
+        //通过修改类名className来更改样式  会覆盖原先已有的类名
+        var d4 = document.querySelector('.d4');
+        d4.onclick = function() {
+            this.className = 'd4_change';
+        }
+
+        //排他思想  先清除所有样式，再修改样式
+        var btns = document.getElementsByTagName('button');
+        for(var i = 0; i<btns.length; i++) {
+            btns[i].onclick = function() {
+                // 每点击一次就清除所有按钮的颜色
+                for(var j = 0; j<btns.length ;j++){
+                    btns[j].style.backgroundColor = '';
+                }
+                var k = 1; 
+                console.log(btns[k]);
+                console.log(i);
+                /* 由于onclick function()函数内部的代码只在点击时生效，
+                   而btns[i].onclick在运行时就生效，因此在点击时i已经变为了5  */
+                this.style.backgroundColor = 'royalblue';
+                console.log(this); //this指向的是触发onclick的btn，因此会有效
+            }
+            // console.log(btns[i]);
+        }
+        
+        //更换背景
+        var imgs = document.querySelector('.bg').querySelectorAll('img');
+        for(var i = 0; i<imgs.length; i++){
+            imgs[i].onclick = function(){
+                document.body.style.backgroundImage = 'url(' + this.src + ')';
+                                                    // 这里不能直接使用this.style.src
+            }
+        }
+
+        //onmouseover  鼠标经过变色    onmouseout鼠标离开
+        var trs = document.querySelector('tbody').querySelectorAll('tr');
+        for(var i = 0; i<trs.length; i++){
+            trs[i].onmouseover = function() {
+                this.style.backgroundColor = 'skyblue';
+            }
+            trs[i].onmouseout = function() {
+                this.style.backgroundColor = '';
+            }
+        }
+
+        //全选
+        var checkAll = document.querySelector('#checkAll');
+        var checkTb = document.querySelector('tbody').querySelectorAll('input');
+        
+        checkAll.onclick = function() {
+            for(var i = 0; i<checkTb.length; i++) {
+                checkTb[i].checked = this.checked;
+            }
+        }
+        for(var i = 0; i<checkTb.length; i++){
+            checkTb[i].onclick = function(){
+                
+                var flag = true;
+                for(var j = 0; j<checkTb.length; j++){
+                    if(checkTb[j].checked == false){
+                        flag = false;
+                        break;
+                    }
+                }
+                checkAll.checked = flag;
+
+                // 简单方式
+                // var checked_count = document.querySelectorAll('tbody input:checked');
+                // checkAll.checked = checkTb.length == checked_count.length;
+            }
+        }
+        
+
+        //获取元素的属性
+        var demo = document.querySelector('div');
+        console.log(demo.className);
+        console.log(demo.getAttribute('class'));
+        console.log(demo.getAttribute('index'));//getAttribute可获取自定义的属性
+        //修改自定义的属性
+        demo.setAttribute('index',100);
+        console.log(demo.getAttribute('index'));
+        //移除自定义的属性
+        demo.removeAttribute('index');
+
+        //在规范上为了更好的区分自定义属性，在命名时通常用data-开头，例如data-index
+        var div5 = document.querySelector('.d5');
+        div5.setAttribute('data-index',2);
+        div5.setAttribute('data-time',12);
+        //dataset是一个集合，里面存放了所有data开头的自定义属性，兼容性差
+        console.log(div5.dataset);
+        console.log(div5.dataset.index);
+        console.log(div5.dataset['time']);
+        //若自定义属性名为data-list-name，调用时要改为驼峰命名法dataset.listName
+    </script>
+</body>
+</html>

@@ -1,0 +1,265 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>网页特效</title>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+        }
+        a {
+            text-decoration: none;
+        }
+
+        .father {
+            position: relative;
+            width: 200px;
+            height: 200px;
+            margin: 100px;
+            background-color: royalblue;
+        }
+        .son {
+            width: 100px;
+            height: 100px;
+            margin-left: 50px;
+            background-color: limegreen;
+            border: 5px solid red;
+        }
+
+
+        #link {
+            color: grey;
+            font-size: 20px;
+        }
+        .login {
+            display: none;
+            position: fixed;
+            top: 50%;
+            left: 50%;
+            z-index: 999;
+            transform: translateX(-50%) translateY(-50%);
+            width: 500px;
+            height: 300px;
+            background-color: #fff;
+            box-shadow: 0 0 20px rgba(255, 255, 255, 0.8);
+        }
+        .login_title {
+            position: relative;
+            height: 50px;
+            border-bottom: 1px solid #ccc;
+            text-align: center;
+            line-height: 50px;
+            font-size: 20px;
+            cursor: move;
+        }
+        .close_login {
+            position: absolute;
+            top: -25px;
+            right: -25px;
+            width: 50px;
+            height: 50px;
+            border-radius: 50%;
+            background-color: #fff;
+            font-size: 12px;
+            color: #333;
+            box-shadow: 0 0 20px rgba(255, 255, 255, 0.8);
+        }
+        .login_input_content {
+            height: 150px;
+            padding: 20px;
+            box-sizing: border-box;
+        }
+        .login_input {
+            margin-bottom: 60px;
+            text-align: center;
+            line-height: 30px;
+        }
+        .login_input label {
+            float: left;
+            width: 150px;
+            text-align: right;
+        }
+        .login_input input {
+            float: left;
+            width: 200px;
+            height: 30px;
+            margin-left: 20px;
+        }
+        .login_button {
+            height: 100px;
+            text-align: center;
+            line-height: 100px;
+        }
+        #submit {
+            display: inline-block;
+            width: 200px;
+            height: 40px;
+            border: 1px solid #ccc;
+            line-height: 40px;
+            color: #333;
+        }
+        .login_bg {
+            display: none;
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: rgba(0,0,0,0.5);
+        }
+
+
+        .d1 {
+            width: 100px;
+            height: 100px;
+            border: 5px solid #000;
+            background-color: royalblue;
+        }
+
+        .d2 {
+            width: 200px;
+            height: 200px;
+            border: 5px solid #333;
+            padding: 10px;
+            margin: 50px;
+            background-color: royalblue;
+            overflow: auto;
+        }
+    </style>
+</head>
+<body>
+    <div class="father">
+        <div class="son"></div>
+    </div>
+
+    <div class="login_header">
+        <a href="javascript:;" id="link">点击登录</a>
+    </div>
+    <div class="login">
+        <div class="login_title">
+            登录会员 <span><a href="javascript:;" class="close_login">关闭</a></span>
+        </div>
+
+        <div class="login_input_content">
+            <div class="login_input">
+                <label for="username">用户名</label>
+                <input type="text" id="username" placeholder="请输入用户名">
+            </div>
+            <div class="login_input">
+                <label for="pw">密码</label>
+                <input type="password" id="pw" placeholder="请输入密码">
+            </div>
+        </div>
+
+        <div class="login_button">
+            <a href="javascript:;" id="submit">登录</a>
+        </div>
+    </div>
+    <div class="login_bg"></div>
+    
+    <div class="d1"></div>
+
+    <div class="d2"> 内容部分 内容部分 内容部分 内容部分 内容部分 内容部分 内容部分 内容部分 内容部分 内容部分 内容部分 内容部分 内容部分 内容部分 内容部分 内容部分 内容部分 内容部分 内容部分 内容部分 内容部分 内容部分 内容部分 内容部分 内容部分 内容部分 内容部分 内容部分 内容部分 内容部分 内容部分 内容部分 内容部分 内容部分 内容部分 内容部分 内容部分 内容部分 内容部分 内容部分 内容部分 内容部分 内容部分 </div>
+
+
+    <script>
+        var father = document.querySelector('.father');
+        var son = document.querySelector('.son');
+        //offset可动态变化
+        console.log(father.offsetTop);
+        console.log(father.offsetLeft);
+        console.log(son.offsetLeft); //以带有 定位 的父级为准，若都没有则以body为准
+        console.log(son.offsetTop);
+
+        console.log(son.offsetWidth); //包含padding+border
+        console.log(son.offsetHeight);
+
+        console.log(son.offsetParent); //返回带有定位的父级，若没有则返回body
+        console.log(son.parentNode);  //返回的是最近一级的父亲，不管有无定位
+
+        console.log(son.style.width); //style只能获得 行内 的属性值，带有单位
+        //offset是只读属性，不能赋值
+
+        father.addEventListener('mousemove', function(e){
+            var x = e.pageX - this.offsetLeft;
+            var y = e.pageY - this.offsetTop;
+            this.innerHTML = 'x坐标为'+x+'，y坐标为'+y;
+        })
+
+
+        //拖动框效果
+        var login = document.querySelector('.login');
+        var mask = document.querySelector('.login_bg');
+        var link = document.querySelector('#link');
+        var closeBtn = document.querySelector('.close_login');
+        var title = document.querySelector('.login_title');
+        link.addEventListener('click', function(){
+            login.style.display = 'block';
+            mask.style.display = 'block';
+        })
+        closeBtn.addEventListener('click', function(){
+            login.style.display = 'none';
+            mask.style.display = 'none';
+        })
+        title.addEventListener('mousedown', function(e){
+            var x = e.pageX - login.offsetLeft;
+            var y = e.pageY - login.offsetTop;
+            document.addEventListener('mousemove', move)
+            function move(e){
+                login.style.left = e.pageX - x + 'px';
+                login.style.top = e.pageY - y + 'px';
+            }
+            document.addEventListener('mouseup', function(){
+                document.removeEventListener('mousemove', move)
+            })
+        })
+
+
+        //client
+        var d1 = document.querySelector('.d1');
+        console.log(d1.clientWidth); //只包含内容和padding，不包括边框
+
+
+        //立即执行函数，不需调用    主要作用：创建独立的作用域，避免命名冲突
+        //(function(){}) ()   ,   (function(){} ())
+        (function(a){
+            console.log('立即执行函数');
+            console.log(a);
+        })('参数');
+        (function sum(a,b){
+            console.log(a+b);
+        } (3,2));3
+
+        var dpr = window.devicePixelRatio || 1;
+        //物理像素比
+        console.log(dpr);
+
+
+        //在某些浏览器中会有“往返缓存”使得后退按钮不会触发load，缓存会保留页面数据，DOM和js状态在内存中
+        //无论页面是否来自缓存，都能在页面显示时触发
+        window.addEventListener('load', function(){
+            alert('load');
+        })
+        window.addEventListener('pageshow', function(e){
+            if(e.persisted){
+                //若e.persisted返回的是true则表明页面是从缓存中取出的
+                alert('pageshow');
+            }
+        })
+
+
+        //scroll
+        var d2 = document.querySelector('.d2');
+        console.log(d2.scrollHeight); //包含所有隐藏部分的高度，包含padding
+        console.log(d2.clientHeight);
+        console.log(d2.offsetHeight);
+        d2.addEventListener('scroll', function(){
+            console.log(d2.scrollTop); //被隐藏部分的高度
+        })
+        
+    </script>
+</body>
+</html>

@@ -1,0 +1,124 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>商品查询</title>
+    <style>
+        .search {
+            width: 500px;
+            height: 60px;
+            margin: 50px auto 0;
+        }
+        .start,
+        .end {
+            width: 88px;
+            height: 20px;
+            margin-bottom: 5px;
+        }
+        .p_name {
+            width: 200px;
+            height: 20px;
+        }
+
+        table {
+            width: 500px;
+            margin: 20px auto;
+            border: 1px solid #ccc;
+            border-collapse: collapse;
+            text-align: center;
+        }
+        table tr {
+            height: 40px;
+        }
+        table thead {
+            border-bottom: 1px solid #ccc;
+        }
+    </style>
+</head>
+<body>
+    <div class="search">
+        按价格查询：<input type="text" class="start"> - <input type="text" class="end">
+        <button class="s_price">查询</button> <br>
+        搜索商品名：<input type="text" class="p_name">
+        <button class="s_name">搜索</button>
+    </div>
+
+    <table>
+        <thead>
+            <tr>
+                <th>编号</th>
+                <th>产品名称</th>
+                <th>价格</th>
+            </tr>
+        </thead>
+        <tbody>
+            <!-- <tr>
+                <td>1</td>
+                <td>小米</td>
+                <td>3000</td>
+            </tr> -->
+        </tbody>
+    </table>
+
+
+    <script>
+        var data = [{
+            id: 1,
+            pname: '小米',
+            price: 4000
+        }, {
+            id: 2,
+            pname: 'oppo',
+            price: 1000
+        }, {
+            id: 3,
+            pname: '荣耀',
+            price: 1200
+        }, {
+            id: 4,
+            pname: '华为',
+            price: 2000
+        }]
+
+
+        var tbody = document.querySelector('tbody');
+        var start = document.querySelector('.start');
+        var end = document.querySelector('.end');
+        var s_price = document.querySelector('.s_price');
+        var p_name = document.querySelector('.p_name');
+        var s_name = document.querySelector('.s_name');
+
+        setData(data);
+        // 数据渲染到页面
+        function setData(myData){
+            tbody.innerHTML = '';
+            myData.forEach(function(value){
+                var tr = document.createElement('tr');
+                tr.innerHTML = '<td>'+ value.id +'</td><td>'+ value.pname +'</td><td>'+ value.price +'</td>';
+                tbody.appendChild(tr);
+            })
+        }
+        
+
+        s_price.addEventListener('click', function(){
+            var newData = data.filter(function(val){
+                return val.price >= start.value && val.price <= end.value; 
+            })
+            setData(newData);
+        })
+
+        s_name.addEventListener('click', function(){
+            var newArr = [];
+            data.some(function(val){
+                if(val.pname == p_name.value){
+                    newArr.push(val);
+                    return true;  //return true;会终止遍历 ，在forEach，filter中不会
+                }
+            })
+            setData(newArr);
+        })
+    </script>
+</body>
+</html>

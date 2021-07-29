@@ -1,0 +1,146 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>正则表达式</title>
+</head>
+<body>
+    <textarea class="text" cols="30" rows="10"></textarea>
+    <div></div>
+    <button class="btn">提交</button>
+
+<script>
+    var reg = new RegExp(/123/);
+    console.log(reg);
+
+    console.log('--------------reg1----------------');
+
+    var reg1 = /123/;
+    // test(str) 检测str是否符合正则表达式的标准
+    console.log(reg1.test(123));  //true
+    console.log(reg1.test(456));  //false
+    console.log(reg1.test('123'));  //true
+
+
+    console.log('--------------reg2----------------');
+    
+    var reg2 = /abc/;  // 正则表达式里面 ，字符串和数字都不需要加引号
+    // 只要包含abc就返回true
+    console.log(reg2.test('abc'));
+    console.log(reg2.test('abcd'));
+    console.log(reg2.test('abdc'));  //false
+
+
+    console.log('-----------reg3----------------');
+
+    // ^ $ 边界符    ^ 以abc开头的返回true    $ 以abc结尾的返回true
+    var reg3 = /^abc/;
+    console.log(reg3.test('abcddd'));
+    console.log(reg3.test('aaabc'));
+
+    var reg33 = /^abc$/  //精确匹配
+    console.log(reg33.test('abc'));
+    console.log(reg33.test('abcabc')); //false
+
+    console.log('---------------reg4-----------------');
+
+    // [] 表示一系列可选字符 ，只要包含其中之一就返回true
+    var reg4 = /[abc]/
+    console.log(reg4.test('afh'));  //true
+    console.log(reg4.test('abc'));  //true
+    console.log(reg4.test('efg'));  //false
+
+    var reg44 = /^[abc]$/  //三选一 ，只能使用一个，并且以这个作为开头和结尾
+    console.log(reg44.test('aha'));  //false
+    console.log(reg44.test('ab'));  //false
+    console.log(reg44.test('a'));  //true
+
+    console.log('-----------------reg5-----------------------');
+
+    var reg5 = /^[a-z]$/  //26个字母任选一个
+    console.log(reg5.test('a'));
+    console.log(reg5.test('A'));
+
+    var reg55 = /^[A-Za-z0-9_-]$/  //选一个大小写字母或数字或 _ 或 -
+    console.log(reg55.test('A'));  //true
+    console.log(reg55.test(5));   //true
+    console.log(reg55.test('5'));  //true
+    console.log(reg55.test('_'));
+
+    console.log('-----------------reg6-----------------------');
+
+    // []中的 ^ 表示取反
+    var reg6 = /^[^A-Za-z0-9]$/
+    console.log(reg6.test('a'));  //false
+    console.log(reg6.test('!'));  //true
+
+
+    console.log('---------------reg7------------------------');
+
+    // 量词符    *表示可出现0次或多次
+    var reg7 = /^a*b$/
+    console.log(reg7.test('aaab'));  //true
+    console.log(reg7.test('b'));     //true
+
+    console.log('---------------reg8------------------------');
+
+    // +表示可出现1次或多次
+    var reg8 = /^a+b$/
+    console.log(reg8.test('aab'));  //true
+    console.log(reg8.test('b'));    //false
+
+    console.log('---------------reg9------------------------');
+
+    // ?表示出现1次或0次
+    var reg9 = /^a?b$/
+    console.log(reg9.test('ab'));  //true
+    console.log(reg9.test('b'));    //true
+    console.log(reg9.test('aaab'));  //false
+
+    console.log('---------------reg10------------------------');
+
+    // {3}  重复3次
+    var reg10 = /^a{3}b$/
+    console.log(reg10.test('ab'));  //false
+    console.log(reg10.test('b'));    //false
+    console.log(reg10.test('aaab'));  //true
+
+    // {3,}  重复次数 大于等于3
+    var reg11 = /^a{3,}b$/
+    console.log(reg11.test('ab'));  //false
+    console.log(reg11.test('b'));    //false
+    console.log(reg11.test('aaab'));  //true
+
+    // {3,15}  重复次数 大于等于3  小于等于15
+    var reg12 = /^a{3,10}b$/
+    console.log(reg12.test('aaab'));  //true
+    console.log(reg12.test('aaaaaaaaaaaab'));  //false
+
+    console.log('----------------reg13------------------');
+    var reg13 = /^abc{3}$/
+    console.log(reg13.test('abccc'));
+
+    // ()表示优先级
+    var reg14 = /^(abc){3}$/
+    console.log(reg14.test('abcabcabc'));
+
+    //  | 表示 或
+    var reg15 = /^[2|3|4]$/
+    console.log(reg15.test(2));
+
+    console.log('----------------reg16------------------');
+
+    // replace(被替换的字符串， 替换的字符串)  字符串替换 (智能替换匹配到的第一个)
+    // 正则表达式参数(修饰符) ：g 全局匹配  ， i 忽略大小写 ， gi全局匹配并忽略大小写 
+    var text = document.querySelector('.text');
+    var div = document.querySelector('div');
+    var btn = document.querySelector('.btn');
+    btn.addEventListener('click', function(){
+        div.innerHTML = text.value.replace(/敏感词|aaa/gi, '***');
+    })
+</script>
+
+</body>
+</html>

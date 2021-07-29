@@ -1,0 +1,96 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>文本</title>
+    <style>
+
+        .d1 {
+            color: red;
+         /* color: #ff0000;
+            color: rgb(255, 0, 0); */
+         /* text-decoration: underline;
+            下划线
+            text-decoration: line-through;
+            删除线
+            text-decoration: overline;
+            上划线 */
+        }
+        a {
+            text-decoration: none;
+            /* 多用于去除超链接中默认的下划线 */
+        }
+
+        h1 {
+            text-align: center;
+            /* 将h1盒子中的文字居中，不会改变h1盒子本身大小  left左对齐 right右对齐*/
+        }
+
+        p {
+            text-indent: 2em;
+            /* text-indent: 20px; */
+            /* 段落缩进，可以取负值,em为相对单位，表示当前元素文字大小的距离*/
+            line-height: 30px;
+            /* 行间距,上间距+文本高度+下间距 */
+            letter-spacing: 2px;
+            /* 字间距 */
+        }
+
+        .d2 {
+            width: 150px;
+            height: 80px;
+            background-color: royalblue;
+
+            white-space: nowrap;
+            /* 使文字必须一行显示 */
+            overflow: hidden;
+            /* 溢出隐藏 */
+            text-overflow: ellipsis;
+            /* 文字溢出时用省略号显示 */
+        }
+
+        .d3 {
+            /* 兼容性存在问题 */
+            width: 150px;
+            height:85px;
+            background-color: royalblue;
+            overflow: hidden;
+            text-overflow: ellipsis;
+
+            display: -webkit-box;
+            /* 弹性伸缩盒子模型 */
+            -webkit-line-clamp: 4;
+            /* 显示的行数 */
+            -webkit-box-orient: vertical;
+            /* 设置或检索伸缩盒对象的子元素排列方式 */
+        }
+    </style>
+</head>
+<body>
+    <h1>居中对齐</h1>
+    
+    <div class="d1">
+        文本颜色
+    </div>
+
+    <a href="#">超链接</a>
+
+    <p>
+        段落缩进，段落缩进，段落缩进，段落缩进，段落缩进，段落缩进，<br>
+        段落缩进，段落缩进，段落缩进，段落缩进，段落缩进，段落缩进，<br>
+        段落缩进，段落缩进，段落缩进，段落缩进，段落缩进，段落缩进。<br>
+    </p>
+
+    <div class="d2">
+        溢出文本隐藏，此处省略一万字
+    </div>
+    <br>
+    <div class="d3">
+        溢出文本隐藏，此处省略一万字。
+        溢出文本隐藏，此处省略一万字。
+        溢出文本隐藏，此处省略一万字。
+    </div>
+</body>
+</html>

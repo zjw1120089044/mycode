@@ -1,0 +1,168 @@
+<!DOCTYPE html>
+<html lang="ch">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>动画函数</title>
+    <script src="animate.js"></script>
+    <style>
+        .d1 {
+            position: absolute;
+            top: 30px;
+            width: 100px;
+            height: 100px;
+            padding: 20px;
+            background-color: royalblue;
+            border-radius: 50%;
+            box-sizing: border-box;
+        }
+
+        .d2 {
+            position: absolute;
+            top: 150px;
+            width: 100px;
+            height: 100px;
+            padding: 20px;
+            background-color: limegreen;
+            border-radius: 50%;
+            box-sizing: border-box;
+        }
+
+        .d3 {
+            position: absolute;
+            top: 250px;
+            width: 100px;
+            height: 100px;
+            padding: 20px;
+            background-color: goldenrod;
+            border-radius: 50%;
+            box-sizing: border-box;
+        }
+
+        .sliderbar {
+            position: fixed;
+            right: 0;
+            bottom: 100px;
+            width: 50px;
+            height: 50px;
+            background-color: slateblue;
+            color: white;
+            text-align: center;
+            line-height: 50px;
+            cursor: pointer;
+        }
+        .sliderbar span {
+            display: inline-block;
+            width: 50px;
+            height: 50px;
+            background-color: slateblue;
+        }
+        .con {
+            position: absolute;
+            left: 0;
+            top: 0;
+            z-index: -1;
+            width: 165px;
+            height: 50px;
+            background-color: skyblue;
+            border-radius: 25px 0 0 25px;
+        }
+    </style>
+</head>
+<body>
+    <div class="d1"></div>
+
+    <button class="btn">点击开始移动</button>
+    <div class="d2">d2</div>
+
+    <div class="d3">减速</div>
+
+    <button class="btn500">移动到500px</button>
+    <button class="btn800">移动到800px</button>
+
+    <div class="sliderbar">
+        <span>←</span>
+        <div class="con">问题反馈</div>
+    </div>
+
+    <script>
+        var d1 = document.querySelector('.d1');
+
+        //动画函数封装
+        function animate(obj, target){
+            clearInterval(obj.timer);
+            obj.timer = setInterval(function(){
+            //通过直接给对象添加属性的方式，不需要再从内存开辟空间存放timer
+                if(obj.offsetLeft >= target){
+                    obj.innerHTML = '到达了' + target + 'px';
+                    clearInterval(obj.timer);
+                }else{
+                    obj.style.left = obj.offsetLeft + 3 + 'px';
+                }
+            }, 1);
+        }
+
+        //动画函数调用
+        animate(d1, 1000);
+
+        var d2 = document.querySelector('.d2');
+        var btn = document.querySelector('.btn');
+        btn.addEventListener('click', function(){
+            animate(d2, 1000);
+        })
+        //不断点击按钮会使定时器叠加，导致速度越来越快
+        //通过在动画函数开头清除其他定时器来防止多次点击
+
+        //减速运动    设定 步长=(目标值-当前位置)/10
+        function slow(obj, target, callback){
+            clearInterval(obj.timer);
+            obj.timer = setInterval(function(){
+                var step = (target - obj.offsetLeft) / 10; 
+                step = step > 0 ? Math.ceil(step) : Math.floor(step); //向上或向下取整，防止最后step变为无穷小
+                if(obj.offsetLeft == target){
+                    obj.innerHTML = '到达了' + target + 'px';
+                    clearInterval(obj.timer);
+                    
+                    if(callback){
+                        alert('执行回调函数');
+                        callback();
+                    }
+
+                }else{
+                    obj.style.left = obj.offsetLeft + step + 'px';
+                }
+            }, 30);
+        }
+        var d3 = document.querySelector('.d3');
+        btn.addEventListener('click', function(){
+            slow(d3, 1000);
+        })
+
+        var btn500 = document.querySelector('.btn500');
+        var btn800 = document.querySelector('.btn800');
+        btn500.addEventListener('click', function(){
+            slow(d3, 500 ,function(){
+                d3.style.backgroundColor = 'gray';
+            });
+        })
+        btn800.addEventListener('click', function(){
+            slow(d3, 800);
+        })
+
+
+        var sliderbar = document.querySelector('.sliderbar');
+        var con = document.querySelector('.con');
+        sliderbar.addEventListener('mouseenter', function(){
+            animate_slow(con, -165, function(){
+                sliderbar.children[0].innerHTML = '→';
+            })
+        })
+        sliderbar.addEventListener('mouseleave', function(){
+            animate_slow(con, 0, function(){
+                sliderbar.children[0].innerHTML = '←';
+            })
+        })
+    </script>
+</body>
+</html>

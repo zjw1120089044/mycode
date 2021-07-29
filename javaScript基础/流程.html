@@ -1,0 +1,56 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>流程控制</title>
+    <script>
+        //三元表达式
+        var time = prompt('请输入一个数字');
+        var result = time < 10 ? '0'+time : time;
+        console.log(result);
+
+        
+        var num = prompt('请输入要匹配的数');
+        switch(parseInt(num)){  //switch-case需要全等才能进行匹配
+            case 1:
+                console.log(1);
+                break;
+            case 2:
+                console.log(2);
+                break;
+            case 3:
+                console.log(3);
+                break;
+            default:
+                console.log('不匹配');  
+        }
+
+        var row = parseInt(prompt('请输入行数'));
+        var col = parseInt(prompt('请输入列数'));
+        var str = '';
+        for(var i=1;i<=row;i++){
+            for(var j=1;j<=col;j++){
+                str = str +'★';
+            }str += '\n';
+        }
+        console.log(str);
+
+        //求1-100之间数字之和，能被7整除的数字除外
+        var sum = 0;
+        for(var i=1;i<=100;i++){
+            if(i % 7 == 0){
+                continue;//跳出本次循环
+            }else{
+                sum += i;
+            }
+        }
+        console.log(sum);
+
+    </script>
+</head>
+<body>
+    
+</body>
+</html>
