@@ -96,6 +96,8 @@
 
     <img src="images/open.png" alt="">
 
+    <input type="text" class="ipt">
+
     <script>
         //可对同一个元素，同一事件添加多个监听器,而onclick只能添加一个
         var btn = document.querySelector('.btn');
@@ -285,6 +287,13 @@
         })
         document.addEventListener('keypress', function(e){
             console.log('press:' + e.keyCode);//得到的字母区分大小写
+        })
+
+        var ipt = document.querySelector('.ipt');
+        document.addEventListener('keyup', function(e){
+            if(e.keyCode == 83){
+                ipt.focus();  //按下 s 后获取焦点
+            }
         })
     </script>
 </body>

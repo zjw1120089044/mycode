@@ -19,13 +19,17 @@
     console.log('------------arr1-------------');
     var arr1 = ['a', 'b', 'c'];
     // var arr = [];
+
     arr1.forEach(function(value, index, array){
         console.log(index , value);
         console.log(array);
+
         // if(value % 2 == 0){
         //     arr.push(value);
         // }
+
     })
+    
     // console.log(arr);
 
     // filter()筛选数组  返回值为数组类型
@@ -46,10 +50,18 @@
         return value > 100;
     })
     console.log(flag);
+    
     var flag2 = arr1.some(function(val){
         return val == 'b';
     })
     console.log(flag2);
+
+    var arrTest = ['a', 'b', 1];
+    var flagTest = arrTest.some(function(val){
+        console.log(typeof val);
+        return (typeof val) == 'string';
+    })
+    console.log(flagTest);
 
     console.log('------------arr4-------------');
     // every()  判断每个元素是否都满足条件
@@ -103,6 +115,9 @@
     var arr6 = Object.keys(obj);
     console.log(arr6);
 
+
+
+
     // Object.defineProperty(对象，属性名，{属性值}) 新增或修改属性
     Object.defineProperty(obj, 'age', {
         value: 21
@@ -117,7 +132,7 @@
     })
     Object.defineProperty(obj, 'address', {
         value: '杭州',
-        enumerable: false,   //不允许遍历，默认为false(通过defineProperty新增的属性也是)
+        enumerable: false,   //不允许遍历该属性，默认为false(通过defineProperty新增的属性也是)
         
     })
     obj.id = 2222;

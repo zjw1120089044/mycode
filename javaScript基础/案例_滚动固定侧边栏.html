@@ -126,7 +126,8 @@
         var banner = document.querySelector('.banner');
         var main = document.querySelector('.main');
         var goback = document.querySelector('.goback');
-        
+        // var body = document.documentElement;
+
         var bannerTop = banner.offsetTop;
         var sliderTop = slider.offsetTop - bannerTop;
         var mainTop = main.offsetTop;
@@ -134,6 +135,7 @@
         document.addEventListener('scroll', function(){
 
             console.log(window.pageYOffset);  //页面上滚的高度
+            // console.log(body.scrollTop);
 
             if(window.pageYOffset >= bannerTop){
                 slider.style.position = 'fixed';

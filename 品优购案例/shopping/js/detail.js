@@ -3,7 +3,7 @@ window.addEventListener('load', function(){
     var mask = document.querySelector('.mask');
     var big = document.querySelector('.big');
     pre_img.addEventListener('mouseover', function(){
-        mask.style.display = 'block';
+        mask.style.display = 'block';  //mouseover的冒泡可能会导致闪烁
         big.style.display = 'block';
     })
     pre_img.addEventListener('mouseout', function(){

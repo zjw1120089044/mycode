@@ -53,17 +53,21 @@
         }
         say() {
             console.log("子类");
-            super.say();  //同样可用super调用父类的方法
+            super.say();  //同样可用super在方法中调用父类的方法
         }
     }
 
     var myson = new Son(2, 3);
-    myson.money();
+    myson.money();  //父类中的方法会自动继承
 
     myson.sum();
 
     myson.say();  //子类中与父类同名的方法，会优先调用子类
     
+    myson.getNum = function(){   //给对象单独添加私有方法(添加在构造函数中)
+        console.log('num');
+    }
+    myson.getNum();
 
     // ES6中没有变量提升，必须先定义类才能实例化对象
     class Person {

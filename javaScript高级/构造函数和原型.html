@@ -15,6 +15,11 @@
     var obj1 = {};
 
     var obj2 = new Object();
+                // new 构造函数() 的原理：
+                    // 创建一个空对象
+                    // 让this指向这个空对象
+                    // 执行构造函数，挂载属性
+                    // 返回这个空对象给你创建的对象
 
     // 利用构造函数创建对象(ES5)
     function Person(username, age){
@@ -24,15 +29,18 @@
             console.log('唱歌');
         }
     }
+    
     var p1 = new Person('伟', 18);
 
-    // 实例成员：构造函数内部通过this添加的成员
+    // 实例成员：构造函数内部通过this添加的成员(构造函数内部的属性和方法都属于实例成员)
     // 实例成员只能通过实例化对象访问
     p1.sing();
 
     // 静态成员：在构造函数本身添加的成员
     Person.ID = 201701;
     console.log(Person.ID);
+    console.log(p1.ID);   //undefined
+
 
     // 由于构造函数中的方法，在每创建一个对象时都会另外开辟地址空间存放相同的函数方法，造成内存浪费
 
@@ -85,6 +93,7 @@
     // 原型对象中的this与构造函数中的相同，都指向实例对象
 
     // 通过原型扩展内置对象的方法
+    // JS内置对象的原型不能整体覆盖(保护机制:忽略掉对象赋值的代码)，只能单独地动态地为原型添加属性或方法
     console.log(Array.prototype);
 
     Array.prototype.sum = function(){
@@ -98,6 +107,35 @@
     console.log(arr.sum());
     var arr1 = new Array(2, 2, 3);
     console.log(arr1.sum());
+
+    // Array.prototype.show = function(num){
+    //     var newArr = [];
+    //     for(var i = 0; i< this.length; i++){
+    //         if(this[i] > num){
+    //             newArr.push(this[i]);
+    //         }
+    //     }
+    //     return newArr;
+    // }
+    // var arr = [2,3,5,6,7,9];
+    // console.log(arr.show(5));
+
+
+    var obj4 = {};
+    var obj5 = {name: 'zs'};
+    console.log(obj4.toString());  //[object Object]
+    console.log(obj5.toString());  //[object Object]
+
+
+    function fn1(){
+        function fn2(){
+            console.log(this);
+        }
+        fn2();  //在没有调用者的时候 ，函数中的this永远指向全局对象(window)
+    }
+    fn1();
+
+    
 </script>
 
 </body>

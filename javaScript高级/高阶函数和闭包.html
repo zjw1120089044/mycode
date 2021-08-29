@@ -31,7 +31,7 @@
             var num = 10;
 
             function fn2(){
-                console.log(num);
+                console.log(num);  //此时num不会被js垃圾回收机制销毁
             }
             fn2();
         }
@@ -47,9 +47,9 @@
         // }
         
         for(var i = 0; i<lis.length; i++){
-            (function(i){
-                lis[i].addEventListener('click', function(){
-                    console.log(i);
+            (function(index){
+                lis[index].addEventListener('click', function(){
+                    console.log(index);  //当内部回调函数访问外部的index时 ，形成了闭包
                 })
 
 
@@ -84,6 +84,8 @@
         console.log(car.price(5, true));
         console.log(car.price(2, false));
 
+
+        
         var name = 'The Window';
         var obj = {
             name: 'The object',
@@ -111,6 +113,37 @@
             }
         }
         console.log( obj.getName() () );
+
+
+        // 静态作用域是指函数的作用域在函数定义时就已经确定了，
+        var a = 100;
+
+        function fn() {
+            var a = 200;
+
+            return function fn1() {
+                console.log(this);
+                console.log(a);
+            }
+            // return fn1;
+        }
+        // var fn2 = fn();
+        // fn();
+        fn()();
+
+
+
+        var b = 2;
+
+        function foo() {
+            console.log(b);
+        }
+
+        function bar() {
+            var b = 3;
+            foo();
+        }
+        bar(); // 2;
     </script>
 </body>
 </html>

@@ -13,11 +13,17 @@
     <script>
         console.log(location.search);
 
-        var params = location.search.substr(1);
-        var arr = params.split('=');
-        console.log(arr);
+        var params = location.search.substr(1).split('&');
+        console.log(params);
+        // var arr = params.split('=');
+        var obj = {};
+        params.forEach((value) => {
+            var arr = value.split('=');
+            obj[arr[0]] = arr[1];
+        });
+        console.log(obj);
         var d1 = document.querySelector('.d1');
-        d1.innerHTML = '当前用户为：' + arr[1];
+        d1.innerHTML = '当前用户为：' + obj.username;
     </script>
 </body>
 </html>

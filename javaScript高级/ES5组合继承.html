@@ -33,7 +33,8 @@
         console.log('￥1000');
     }
     function Son(uname, age, score){
-                // 这里的this是指向子构造函数的实例对象，通过call()将其传给父构造函数的this
+                // 这里的this是指向子构造函数的实例对象，通过call()将其传给父构造函数的this ，
+                // 修改的this仅在本次调用Father时有效 ，不影响之后Father创建实例对象
         Father.call(this, uname, age);  //这里只能继承父亲的属性
         this.score = score;
     }
@@ -41,8 +42,12 @@
     // Son.prototype = Father.prototype;
     //通过直接赋值继承父亲的方法，会将父原型对象的地址传给子原型对象，导致孩子的方法也会传递给父亲
 
+    
     Son.prototype = new Father();  //创建一个父实例对象赋值给子原型
     Son.prototype.constructor = Son;  //因为用父对象修改了原型对象，需要让子原型对象重新指回原来的构造函数
+    // Son.prototype.__proto__ = Father.prototype;  //可以实现继承 ，但规范上不允许修改__proto__
+    // Son.prototype = Object.create(Father.prototype)  //(最优解)避免了new Father()时创建的属性浪费空间的问题
+
 
     Son.prototype.exam = function() {
         console.log('考试');

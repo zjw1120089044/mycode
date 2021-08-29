@@ -73,8 +73,10 @@
         $(".d1").on("mouseenter mouseleave", function(){
             $(this).toggleClass("current");
         })
-        // 事件委托，与冒泡原理相似
-        $(".ul1").on("click", "li", function(){
+        // 事件委托，与冒泡原理相似   这里的this不再指向父元素，而是触发的元素，等价于e.target
+        $(".ul1").on("click", "li", function(e){
+            console.log(this);
+            console.log(e.target);
             alert("事件委托");
         })
         // 还可以给动态创建的元素绑定

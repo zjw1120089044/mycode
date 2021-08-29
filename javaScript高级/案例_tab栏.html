@@ -37,6 +37,9 @@
             line-height: 50px;
             cursor: pointer;
         }
+        .tabnav li span {
+            user-select:none;   /* 禁止选中文字 */
+        }
         .tabnav li input {
             width: 90%;
             height: 60%;
@@ -166,18 +169,23 @@
             }
 
             index--;
+            if(index < 0) index = 0;
             that.lis[index] && that.lis[index].click(); //手动调用，不需要点击触发
         }
         editTab(){
             var str = this.innerHTML;
             // 禁止双击选中文字
-            window.getSelection ? window.getSelection().removeAllRanges() : document.selection.empty;
+            // window.getSelection ? window.getSelection().removeAllRanges() : document.selection.empty;
             this.innerHTML = '<input type="text">';
             var ipt = this.children[0];
             ipt.value = str;
             ipt.select();
 
             ipt.onblur = function(){
+                if(this.value == ''){
+                    alert('不能为空');
+                    return; 
+                }
                 this.parentNode.innerHTML = this.value;
             }
             ipt.onkeyup = function(e){

@@ -23,7 +23,7 @@
         console.log(fn instanceof Object);  //判断是否属于Object
 
 
-        // 函数调用的方式    不同的调用方式决定了this不同的指向
+        // 函数调用的方式    不同的调用方式决定了this不同的指向 ，未写调用者的情况函数永远指向全局对象
 
         // fn();    fn.call();    this指向调用者window   (window.fn())
 
@@ -62,7 +62,7 @@
             console.log(this);
             console.log(a + b);
         }
-        // 改变this指向， 传参
+        // 改变this指向， 传参(修改的this仅在本次调用有效)
         fn1.call(obj1, 4, 6);
 
 
@@ -85,14 +85,17 @@
             this.disabled = true;
             // var that = this;
             setTimeout(function(){   //定时器中的this指向window
-                // that.disabled = false;
                 console.log(this);
                 this.disabled = false;
+            // 由于该函数中的this指向window ，需要修改this指向btn ，
+            // 又不能立即调用该函数 ，因此需要使用bind()
+
             }.bind(this), 3000)
-            // 由于设置了定时器，不能立即执行该匿名函数，因此只能用bind，其中this指向btn
+            // 这里this指向btn
             
         })
 
+        // 函数中的this指向 ，在函数被调用时才能确定
 
         function C2(){
             this.a = 37;

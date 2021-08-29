@@ -27,16 +27,15 @@
     }
     console.log(i);
 
-    // let没有变量提升
+    // let没有变量提升(实际上变量提升了，但是禁止访问)
     // console.log(c);
     // let c = 4;
 
     // 暂时性死区  在块级作用域中用let声明的同名变量不会向外查询
     let num = 6;
     if(1){
-        // console.log(num);
+        // console.log(num);   //报错，变量未定义
         let num = 0;
-        console.log(num);
     }
 
 
@@ -74,24 +73,24 @@
         console.log(d);
     }
 
-    // 对于复杂数据类型的常量 ，其内部的值可修改
+    // 对于复杂数据类型的常量 ，其内部的值可修改(地址不能修改)
     const arr3 = [111,222,333];
     arr3[0] = 100;
     // arr3 = [100,200,300];
     console.log(arr3);
 
     // 数组解构  若没有对应的值，则变量值为undefined
-    let [x,y,z] = [1,2,3];
-    console.log(x);
+    let [,y,z,x] = [1,2,3];
     console.log(y);
     console.log(z);
+    console.log(x);
 
     // 对象解构
     let person = {name: '张三', age: 18, sex: '男'};
     let {name, age, p_sex} = person;   //必须是与属性同名的变量
     console.log(name);
     console.log(age);
-    console.log(p_sex);
+    console.log(p_sex);  //undefined
     // 也可通过属性匹配变量名
     let {name:myName, age:myAge, sex: mySex} = person;
     console.log(myName);
@@ -122,10 +121,11 @@
     const obj1 = {name: '伟'};
     // console.log(fn1.call(obj1));
     const res_fn1 = fn1.call(obj1);
-    res_fn1();
+    res_fn1();  //obj
 
 
-    var age2 = 100;
+    // let age3 = 101;
+    var age2 = 100;     //var定义的全局变量会作为window的属性 ，let不会
     let obj2 = {
         age2: 20,
         say: () => {
@@ -160,10 +160,10 @@
     console.log(s2);
 
 
-    // 扩展运算符
+    // ...扩展运算符
     let arr5 = [1, 2, 3];
-    console.log(...arr5);
-    // console.log(1,2,3);
+    console.log(...arr5);  //拆分数组
+    // console.log(1,2,3);  与上面等价
 
     // 利用扩展运算符，将数组合并
     let arr6 = [4, 5, 6];
@@ -179,6 +179,7 @@
     var divArr = [...divs];
     divArr.push('aaa');
     console.log(divArr);
+
 </script>
 
 </body>

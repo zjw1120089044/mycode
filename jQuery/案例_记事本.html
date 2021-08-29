@@ -181,12 +181,12 @@
         // data = JSON.parse(data);
         // console.log(typeof data);
         // console.log(data[0].title);
-
+        
 
         load();
         $("#title").on("keydown", function(e){
             if(e.keyCode == 13){
-                if($(this).val() == ""){
+                if($(this).val().trim() == ""){
                     alert("内容不能为空!");
                 }else{
                     var local = getData();
@@ -200,21 +200,23 @@
             }
         })
 
+        // JSON是js的内置对象
         function getData() {
             var data = localStorage.getItem("todo");
             if(data != null){
-                return JSON.parse(data);
+                return JSON.parse(data);   //字符串转数组
             }else{
                 return [];  //返回空数组
             }
         }
         function setData(data) {
-            localStorage.setItem("todo", JSON.stringify(data));
+            localStorage.setItem("todo", JSON.stringify(data));   //数组转字符串
         }
 
         // 渲染加载数据
         function load(){
             var data = getData();
+            
             // 由于调用了两次load()，因此需要在每次添加前清空
             $("#todolist, #donelist").empty();
 

@@ -17,11 +17,20 @@
     const s2 = new Set(['a', 'b', 'c']);
     console.log(s2.size);
 
+
     // 利用Set数组去重
     const s3 = new Set(['a', 'a', 'b', 'b']);
     console.log(s3);
     let arr3 = [...s3];
     console.log(arr3);
+
+    console.log('======indexOf数组去重==========');
+    const arr = [1,2,3,2,3,3,4];
+    const newArr = arr.filter((item, i) => {
+        return arr.indexOf(item) == i;
+    })
+    console.log(newArr);
+
 
     // add() 向Set中添加 值 ，可以链式调用该方法
     const s4 = new Set();

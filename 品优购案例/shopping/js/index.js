@@ -42,7 +42,7 @@ window.addEventListener('load', function(){
             var target = -(this.getAttribute('data-index') * focusWidth);
             animate_slow(ul, target);
 
-            //将点击的圆圈索引传递给左右箭头
+            //将点击的圆圈索引传递给左右箭头的click监听器
             count = this.dataset.index;
             index = this.dataset.index;
         })
@@ -57,7 +57,7 @@ window.addEventListener('load', function(){
     //设置节流阀，防止快速点击
     var flag = 1;
 
-    var count = 0;
+    var count = 0; //图片索引
     var index = 0; //圆圈索引
     arrow_left.addEventListener('click', function(){
         if(flag){
@@ -108,6 +108,7 @@ window.addEventListener('load', function(){
         //手动调用点击事件
         arrow_right.click();
     }, 2000)
+
 })
 
 

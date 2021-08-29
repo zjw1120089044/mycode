@@ -96,7 +96,11 @@
             tbody.innerHTML = '';
             myData.forEach(function(value){
                 var tr = document.createElement('tr');
-                tr.innerHTML = '<td>'+ value.id +'</td><td>'+ value.pname +'</td><td>'+ value.price +'</td>';
+                tr.innerHTML = `
+                    <td>${value.id}</td>
+                    <td>${value.pname}</td>
+                    <td>${value.price}</td>
+                `
                 tbody.appendChild(tr);
             })
         }

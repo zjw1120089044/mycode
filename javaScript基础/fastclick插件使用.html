@@ -17,9 +17,9 @@
 
     <script>
         //由于移动端双击屏幕会产生页面缩放效果，造成click事件产生300ms延时
-        if('addEventListener' in document){
+        if('addEventListener' in document){ //检测是不是高级浏览器
             document.addEventListener('DOMContentLoaded', function(){
-                FastClick.attach(document.body);
+                FastClick.attach(document.body);  //给body添加fastclick事件
             }, false);
         }
 
